@@ -1,0 +1,92 @@
+
+<div class="" ng-controller="ConnexionCtrl">
+    <div class="wedge40">&nbsp;</div>
+    <div class="layer_cart_light" style="background: #ddd;  box-shadow: 0 0 80px -6px black; border: 3px solid #3d3c3f; width: 1000px; transform: translate(-50%, 0); position: relative; z-index: 99; left:50%; top: 50%; display: block; " >
+      <div class="layer_cart_product">
+        <br/>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 bordure" >
+          <div  ><br/>
+            <h3 class="connexion">PAS ENCORE MEMBRE, INSCRIVEZ-VOUS</h3><br/>
+          </div>  
+
+          <form>
+          <div class="row">
+            <div class="col-xs-12 col-sm-12">
+              <center>
+                <input type="email" class="inputConn" placeholder="Adresse email" ng-model="usr" />
+              </center>
+            </div>
+          </div><div class="wedge80">&nbsp;</div>
+          <div class="wedge5">&nbsp;</div>
+          <div class="row">    
+            <div class="col-xs-12 col-sm-12">
+              <center>
+                <a  href="#/inscription/1" ><button type="button" class="seConnect" title="Vers le module d'inscription" ng-click="inscription()" >S'inscrire</button></a>
+              </center>
+            </div>
+          </div>
+            <div class="wedge40">&nbsp;</div> 
+            <div class="wedge20">&nbsp;</div>
+            <div class="wedge1">&nbsp;</div>
+          </form>
+        </div>
+
+      
+        <div class="col-xs-12 col-sm-6 bordure" >
+          <div  ><br/>
+            <h3 class="connexion">DÉJÀ CLIENT OU MEMBRE, IDENTIFIEZ-VOUS</h3><br/>
+          </div>       
+          <div>
+
+            <form>
+            <div class="row">
+              <div class="col-xs-12 col-sm-12">
+                <center>
+                  <input type="text" class="inputConn" placeholder="Adresse email" ng-model="userMail" />
+                </center>
+              </div>
+            </div><br/>
+
+            <div class="row">    
+              <div class="col-xs-12 col-sm-12">
+                <center>
+                  <input type="password" class="inputConn" placeholder="Mot de passe" ng-model="mp"  />
+                </center>
+              </div>
+            </div>
+            <div class="wedge20">&nbsp;</div>
+            <div class="wedge3">&nbsp;</div>
+            <div class="row">    
+              <div class="col-xs-12 col-sm-12">
+                <center>
+                   <a  ng-href="#/panier" > <button type="button" class="seConnect" ng-click="connexion(); " title="Entrez une adresse e-mail"  >Se connecter</button><</a> 
+                </center>
+              </div>
+            </div> <br/>
+
+            </form>
+             
+             
+            <div class="row">               
+              <div class="col-xs-12 col-sm-12">
+                <center>
+                  <a  class="mdpOublie" style=""  >Mot de passe oublié ?</a>
+                </center>
+              </div>
+            </div>
+            <br/>
+          </div>
+        </div> <br/>
+
+      </div>    <br/>                  
+        <div class="decal-g">
+          <a href="#/panier"  class="decal-l" >
+            <button class="btn btn-greyish "  ><< Revenir au panier</button>
+          </a>
+        </div>
+          <br/><br/>
+      </div>
+    </div >
+  </div ><br/><br/><br/><br/>
+</div>

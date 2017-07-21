@@ -1,0 +1,187 @@
+<div class="">
+
+<!-- Coquillage building *****************************************************-->
+  <h1>Accueil</h1>
+<section class="sectn" id="" style="" ng-controller="MainCtrl">
+  <div class="row" >
+    <div class="col-md-5" >
+      <div id="conteneur" style="width: 200px; height: 300px;" >
+          
+      </div>
+    </div>
+  <div class="col-md-7" >
+    <form style="font-size: 10px;">
+      <div class="row" >
+        <div class="col-sm-12" ><center>
+          <h4>Peut-être avez-vous envie de déformer ce joli coquillage ?</h4>
+          </center>
+        </div>
+      </div>
+      <div class="row" >
+        <div class="col-sm-6" >
+          <table>
+
+            <tr>
+              <td>diamètre du tube</td>
+              <td><input type="range" min="15" max="151" step="5" data-slider-handle="round"
+              name="ptid" id="ptd"   ng-model="ptd" ng-change="ajust()" /></td>
+            </tr>
+            <tr>
+              <td>Hauteur coquille</td>
+              <td><input type="range" name="ht" id="hauteur" min="0" max="340" step="5" ng-model="hauteur" ng-change="ajust()" /></td>
+            </tr>
+            <tr>
+              <td>diamètre coquille</td>
+              <td><input type="range" name="grdD" id="gdD"  min="10" max="{{Math.min(100,Math.round(ptd*10))}}" step="5"  ng-model="gdD" ng-change="ajust()" /></td>
+            </tr> 
+            <tr>
+              <td ng-class="{'colorenable': stopspire==false ,'colordisable' : stopspire==true }">nombre de spires</td>
+              <td><input type="range" name="nbspir" id="nbsp"  min="6" max="12" step="1"  ng-model="nbsp" ng-disabled="stopspire" ng-change="ajust()" /></td>
+            </tr> 
+            <tr>
+              <td>distorsion</td>
+              <td><input type="range" name="dist" id="dist"  min="0.9" max="1.1" step="0.01"  ng-model="dist" ng-change="ajust()" /></td>
+            </tr> 
+          </table>
+        </div>
+        <div class="col-sm-6" >        
+          <table>                      
+            <tr>
+              <td>Inclin X</td>
+              <td><input type="range" name="incX" id="inclinX"  min="-180" max="180" step="5"  ng-model="inclinX" ng-change="ajust()" /></td>
+            </tr>
+            <tr>
+              <td>Inclin Y</td>
+              <td><input type="range" name="incY" id="inclinY" min="-80" max="80" step="5"  ng-model="inclinY" ng-change="ajust()" /></td>
+            </tr>
+            <tr>
+              <td>Inclin Z</td>
+              <td><input type="range" name="incZ" id="inclinZ" min="-90" max="90" step="5" ng-model="inclinZ" ng-change="ajust()" /></td>
+            </tr>
+            <tr>
+              <td>nb pas par spire</td>
+              <td><input type="range" name="npas" id="nbpas" min="50" max="200" step="5"  ng-model="nbpas" ng-change="ajust()"/></td>
+            </tr>  
+                 
+          </table>
+        </div>
+      </div><br/>
+      <div class="row" >
+        <div class="col-sm-12" >
+          <center>
+          <button type="button" class="btn btn-greyish" ng-click="reset()"  >ré-initialiser</button>
+          </center>
+        </div>
+      </div>    
+    </form>
+  </div> 
+  </div> 
+</section> 
+<img src="images/Logo.jpg" style="width:120px;position:relative;top:-50px; left:-15px; box-shadow: 2px 2px 3px black;">
+</div>
+
+<!-- s'inscrire | se connecter / se déconnecter : *************************************************** -->
+<input type="hidden" ng-model="connect" />
+<div class="showConnexion"  ng-init="showConnexion=false" ng-show="connect==false" ng-mouseover="statutconnexion()">
+  <div class="bordure cadreConn" >
+    <button type="button" class="btn-darkblue connecter"  ng-click="showConnexion=true;">S'inscrire</button>
+  </div>
+  <div class="bordure cadreConn"  >
+    <button type="button" class="btn-darkblue connecter"  ng-click="showConnexion=true;">Se connecter</button>
+  </div>
+</div>
+<div  class="showConnexion"  ng-show="connect==true" ng-mouseover="statutconnexion()" >
+  <div class="bordure cadreConn2"  >
+    <button type="button" class="btn-darkblue connecter"  ng-click="deconnexion()">Se déconnecter</button>
+  </div>
+</div>
+
+<!-- Boîte dialogue vers connexion : ****************************************************-->
+  <div ng-show="showConnexion==true">
+        <div class="layer_cart_overlay" ></div>
+        <div class="layer_cart" >
+          <div class="layer_cart_product">
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 bordure" >
+              <div  >
+                <h3 class="connexion">PAS ENCORE MEMBRE, INSCRIVEZ-VOUS</h3>
+              </div>  
+
+              <form>
+              <div class="row"><div class="wedge30">&nbsp;</div>
+                <div class="col-xs-12 col-sm-12">
+                  <center>
+                    <input type="text" class="inputConn" placeholder="Adresse email" ng-model="usr"  />
+                  </center>
+                </div>
+              </div><div style="height:80px; color:red; font-weight:600; padding:10px;"> &nbsp; {{msg}}</div>
+
+              <div class="row">    
+                <div class="col-xs-12 col-sm-12">
+                  <center>
+                    
+                    <a  href="#/inscription/0"  ng-show="testc==true" ng-click="" style="color:#0d0"><button type="button" class="seConnect" ng-click="inscription();  " title="Vers le module d'inscription" >S'inscrire</button></a>
+                    <button type="button" ng-show="testc==false" class="seConnect" ng-click="inscription(); " title="Saisir une adresse mail" >S'inscrire</button>
+                    
+                  </center>
+                </div>
+              </div><div style="height:40px">&nbsp;</div>
+              </form>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 bordure" >
+              <div  >
+                <h3 class="connexion">DÉJÀ CLIENT OU MEMBRE, IDENTIFIEZ-VOUS</h3>
+              </div>       
+              <div>
+
+                <form>
+                <div class="row">
+                  <div class="col-xs-12 col-sm-12">
+                    <center>
+                      <input type="text" class="inputConn" placeholder="Adresse email" ng-model="userMail" required />
+                    </center>
+                  </div>
+                </div><br/>
+
+                <div class="row">    
+                  <div class="col-xs-12 col-sm-12">
+                    <center>
+                      <input type="password" class="inputConn" placeholder="Mot de passe" ng-model="mp"  />
+                    </center>
+                  </div>
+                </div>
+                 {{msg_c}}
+                <br/>
+
+                <div class="row">    
+                  <div class="col-xs-12 col-sm-12">
+                    <center>
+                      <button type="button" class="seConnect" ng-click="connexion(); " title="Entrez une adresse e-mail"  >Se connecter</button>
+                    </center>
+                  </div>
+                </div> <br/>
+
+                </form>
+                 
+                 
+                <div class="row">               
+                  <div class="col-xs-12 col-sm-12">
+                    <center>
+                      <a  class="mdpOublie" style="" title="Option non fonctionnelle, désolé !" >Mot de passe oublié ?</a>
+                    </center>
+                  </div>
+                </div>
+
+              </div>
+            </div> 
+              <a href="" class="closePopin"  >
+                <i class=" icon-close-circle-outline icon-3x"  ><span class="glyphicon glyphicon-remove-circle" ng-click="showConnexion=false;" ></span></i>
+              </a>
+          </div>                       
+
+          </div>
+        </div >
+      </div >
+        <!-- fin boîte dialogue vers connexion / inscription -->

@@ -1,0 +1,140 @@
+<div class="" ng-controller="AdresseCtrl">
+  <!-- ******** Flèches de progression : ******** -->
+  <section >
+    <div>
+      <ul id="order_step" class="step clearfix">
+        <li class="step_current first">
+          <span><em>01.</em>Récapitulatif</span>
+        </li>
+        <li class="step_current second decal-G" >
+          <span  ><em >02.</em>Connexion</span>
+        </li>
+        <li class="step_current third decal-G">
+          <span><em>03.</em>Adresse</span>
+        </li>
+        <li class="step_todo four">
+          <span><em>04.</em>Livraison</span>
+        </li>
+        <li id="step_end" class="step_todo last">
+          <span><em>05.</em>Paiement</span>
+        </li>
+      </ul>
+    </div>
+    <div class="wedge80">&nbsp;</div>
+  </section>
+
+  <!-- ******** Boîte de dialogue : ************ -->
+  <div class="layer_cart_overlay" ></div>  
+    <div class="inscrpt inscrpt2"   >
+      <div class="layer_cart_product">
+
+       <form> 
+          <div class="row">
+              <div class="col-xs-12 col-sm-12 bordure" >
+
+                <h3 class="connexion">ADRESSE DE FACTURATION</h3>
+
+              </div>       
+          </div>
+          
+          <div class="wedge5">&nbsp;</div> 
+          <div class="wedge15">&nbsp; &nbsp; &nbsp; &nbsp;{{msg}}</div> 
+          <div class="row">
+            <div class="col-xs-12 col-sm-offset-2 col-sm-2 decal-v">
+              <label >Nom</label>
+            </div>
+            <div class="col-xs-12  col-sm-5">
+                <div class="showMail" >{{titre+' '}}{{prenom+' '}}{{nom+' '}} </div>
+            </div>
+          </div>      
+          <div class="row">
+            <div class="col-xs-12 col-sm-offset-2 col-sm-2 decal-v">
+                <label for="no" >N°</label>
+            </div>
+            <div class="col-xs-12  col-sm-5">
+                <input type="text" id="no" class="inputConn" placeholder="n°" ng-model="no" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-offset-2 col-sm-2 decal-v">
+                <label for="rue">Rue*</label>
+            </div>
+            <div class="col-xs-12  col-sm-5">
+                <input type="text" id="rue" class="inputConn" placeholder="rue" ng-model="rue"  />               
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-offset-2 col-sm-2 decal-v">
+                <label for="complt">Complt</label>
+            </div>
+            <div class="col-xs-12  col-sm-5">
+                <input type="text" id="complt" class="inputConn" placeholder="Bâtiment, étage, ..." ng-model="complt"  />               
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-offset-2 col-sm-2 decal-v">
+                <label for="cp">Code postal*</label>
+            </div>
+            <div class="col-xs-12  col-sm-5">
+                <input type="text" id="cp"  class="inputConn" placeholder="00000" ng-model="cp"  />               
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-offset-2 col-sm-2 decal-v">
+                <label for="ville">Ville*</label>
+            </div>
+            <div class="col-xs-12  col-sm-5">
+                <input type="text" id="ville"  class="inputConn" placeholder="ville" ng-model="ville"  />               
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-offset-2 col-sm-2 decal-v">
+                <label for="pays">Pays*</label>
+            </div>
+            <div class="col-xs-12  col-sm-5">
+                <input type="text" id="pays"  class="inputConn" placeholder="pays" ng-model="pays" />               
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-offset-2 col-sm-2 decal-v">
+                <label for="tel">Tel*</label>
+            </div>
+            <div class="col-xs-12  col-sm-5">
+                <input type="text" id="tel"  class="inputConn" placeholder="mobile ou fixe" ng-model="tel" />               
+            </div>
+          </div>
+          <br/>
+
+          <div class="wedge10">&nbsp;</div>
+          <input type="hidden" ng-model="kon"  /> 
+          <input type="hidden" ng-model="adrs"  /> 
+          <div class="row">  
+            <div class="col-xs-12 col-sm-offset-3 col-sm-6" ng-show="existedja==true">
+              <center>
+                <a  ng-href="#/panier " ><button type="button" class="seConnect" ng-click="inscriAdresse();"  title="Valider ou modifier l'adresse "  ><span >Valider | Remplacer l'adresse par celle-ci</span></button><!--</a>  -->       
+              </center>
+            </div>
+            <div class="col-xs-12 col-sm-offset-4 col-sm-4" ng-show="existedja==false">
+              <center>           
+                <a ng-href="#/panier" ><button type="button" class="seConnect" ng-click="inscriAdresse(); " title="Valider l'adresse "  ><span >Valider l'adresse</span></button>  </a>         
+              </center>
+            </div>
+          </div> 
+
+        </form>
+        <div class="wedge10">&nbsp;</div>
+        <div class="bordure">
+          <div class="wedge5">&nbsp;</div>                     
+          <div class="decal-g">
+            <a href="#/panier"  class="decal-l" >
+              <button class="btn btn-greyish "  ><< Précèdent</button>
+            </a>
+          </div>
+        </div>
+          <div class="wedge5">&nbsp;</div> 
+
+      </div>
+    </div >
+  </div >
+
+</div>

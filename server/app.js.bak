@@ -1,0 +1,54 @@
+//source : https://www.youtube.com/watch?v=mVtRK89MrHc
+// Initialize the express framework
+var express 		= require('express'),
+	bodyParser		= require('body-parser'),
+	path			= require('path'),
+	mongoose		= require('mongoose'),
+	databaseName 	= 'produits';
+
+	// Express setup
+	var app = express();
+	app.use(bodyParser.json());
+	app.use(bodyParser.urlencoded({extended:true}));
+	app.use(express.static(path.join(__dirname, '../client')));
+	//app.use(express.static(__dirname+'/public'));
+
+	// Routes set up
+	var router = express.Router();
+	var produit = require('./controllers/api/produit');
+
+	// Get all produits
+	router.get('/api/produit', produit.getAll);
+
+	// Create a produit
+	router.post('/api/produit', produit.create);
+
+	// Get one produit, update one produit, delete one produit
+	router.route('/api/produit/:_id')
+		.get(produit.read)
+		.put(produit.update)
+		.delete(produit.delete);
+
+	//Register the routing
+	app.use('/', router);
+
+	mongoose.connect('mongodb://localhost/' + databaseName,
+	    function(err){
+		if(err) {throw err;} 
+		else{console.log('connexion en attente');}
+		} );
+	var db = mongoose.connection;
+	db.on('error', console.error.bind(console, 'connection error:'));
+	db.once('open', startServer);
+
+	// start up the server
+	function startServer(){
+		var server = app.listen(9000, function(){
+				var port = server.address().port;
+				console.log('A l eccoute du port ' + port);
+
+		})
+
+	}
+
+	

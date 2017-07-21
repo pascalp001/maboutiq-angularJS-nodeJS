@@ -1,0 +1,63 @@
+
+
+@media print {
+    .imgwidth1 {width:400px;}
+    .imgwidth2 {width:300px;} 
+    .imgwidth3 {width:240px;}  
+    .imgwidth4 {width:190px;}
+    .imgwidth5 {width:140px;}
+    .imgxxs {width:15px;}
+    h1, .h1 {font-size:4.5rem;}
+    h2, .h2 {font-size:3.7rem;} 
+    h3, .h3 {font-size:2.6rem;}  
+    h4, .h4 {font-size:2.0rem; }
+    h5, .h5 {font-size:1.8rem;  color:#555;}
+    .smallf {font-size: 1.6rem; color:#555;}
+
+    .c-rating__item { width: 27px;  height: 24px;  
+        background: url("../images/stars.png"); background-position: -1px 0;  cursor: pointer;}
+    .c-rating__item.is-active { background-position: -54px 0;}
+    .c-rating__item.half-rating {  background-position: -27px 0;}
+
+    .c-rating__m0 { width:20px; height: 18px; cursor: pointer;}
+    .c-rating__mitem { width: 20px; height: 18px; margin-left:1px; 
+        background: url("../images/starsmoy.png");
+      background-position: 0 0; cursor: pointer; }
+    .c-rating__mitem.is-active { background-position: -40px 0;}
+    .c-rating__mitem.half-rating { background-position: -20px 0;}
+}
+  
+.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, 
+.col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+    position: relative; min-height:1px; padding-left: 15px; padding-right:15px; 
+    box-sizing: border-box; float:left;
+}
+.col-md-1 {width: 8.333333%;}
+.col-md-2 {width: 16.66666%;}
+.col-md-3 {width: 25%;}
+.col-md-4 {width: 33.333333%;}
+.col-md-5 {width: 41.66666%;}
+.col-md-6 {width: 50%;}
+.col-md-7 {width: 58.33333%;}
+.col-md-8 {width: 66.66666%;}
+.col-md-9 {width: 75;}
+.col-md-10 {width: 83.33333%;}
+.col-md-11 {width: 91.66666%;}
+.col-md-12 {width: 100%;}
+.wedge1 {height: 1px;}
+.wedge3 {height: 3px;}
+.wedge5 {height: 5px;}
+.wedge10 {height: 10px;}
+.wedge20 {height: 20px;}
+.wedge30 {height: 30px;}
+.wedge40 {height: 40px;}
+.wedge50 {height: 50px;}
+.wedge60 {height: 60px;}
+.wedge70 {height: 70px;}
+.wedge80 {height: 80px;}
+.bordure { border: 1px solid #99d; }
+.body-color {background-color:#bbc; color:#566b7f;}
+.body-inverse {background-color:#fff; color:#34495e; opacity:1;}
+body {width: 800px;}
+nav {display:none;}
+.footer {display:none;}

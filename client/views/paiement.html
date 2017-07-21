@@ -1,0 +1,274 @@
+<div class="" ng-controller="PaiementCtrl">
+  <!-- ******** Flèches de progression : ******** -->
+  <section >
+    <div>
+      <ul id="order_step" class="step clearfix">
+        <li class="step_current first">
+          <span><em>01.</em>Récapitulatif</span>
+        </li>
+        <li class="step_current second decal-G" >
+          <span  ><em >02.</em>Connexion</span>
+        </li>
+        <li class="step_current third decal-G">
+          <span><em>03.</em>Adresse</span>
+        </li>
+        <li class="step_current four decal-G">
+          <span><em>04.</em>Livraison</span>
+        </li>
+        <li id="step_end" class="step_current last decal-G">
+          <span><em>05.</em>Paiement</span>
+        </li>
+      </ul>
+    </div>
+    <div class="wedge80">&nbsp;</div>
+  </section>
+
+  <!-- ******** Boîte de dialogue : ************ -->
+  <div class="layer_cart_overlay" ></div>  
+  <div class="inscrpt inscrpt3"   >
+    <div class="layer_cart_product">
+
+      <div class="row bordure">
+          <div class="col-xs-12 col-sm-offset-2 col-sm-8 " >
+
+            <h3 class="connexion">SÉLECTIONNEZ VOTRE MODE DE PAIEMENT</h3>
+
+          </div>   
+          <div class="col-xs-12 col-sm-2 " >
+
+            <div class="smallf decal-V">Montant : {{total}} € TTC </div>
+
+          </div>     
+      </div>
+      
+<!-- Choix des modalités de règlement : ************************************************ -->        
+      <div class="wedge10">&nbsp;</div>
+      <div class="bordure">
+
+        <div class="wedge10">&nbsp;</div> 
+
+        <div class="row "  >
+          <div class=" col-sm-1">
+            <center>
+            <input type="radio" ng-model="modbq" value="1" checked />
+            </center>
+          </div>
+          <div class="col-sm-11 ">
+            <div class="row bordure"  >
+              <div class=" col-sm-2 fondGrisClair bordTop">
+                <h4 style="color:gray; ">Carte Bancaire</h4>
+              </div>              
+              <div class=" col-sm-2 fondGrisClair bordTop">
+              <center>
+                <img src="images/mastercardvisa.jpg" style="height:25px; margin-top:7px">  
+                <img src="images/cb.jpg" style="height:25px; margin-top:7px">              
+              </center>
+              </div>
+              <div class="col-sm-6 bordvertiL50">
+                 Paiement immédiat, effectué avec le système de paiement sécurisé {{sysSecur}} de la banque {{nomBqSecur}}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="wedge30">&nbsp;</div> 
+
+        <div class="row "  >
+          <div class=" col-sm-1">
+            <center>
+            <input type="radio" ng-model="modbq" value="2" />
+            </center>
+          </div>
+          <div class="col-sm-11 ">
+            <div class="row bordure"  >
+              <div class=" col-sm-2 fondGrisClair bordTop">
+                <h4 style="color:gray; ">PAYPAL</h4>
+              </div>              
+              <div class=" col-sm-2 fondGrisClair bordTop">
+              <center>
+                <img src="images/paypal.png" style="width:70px; margin-top:7px">               
+              </center>
+              </div>
+              <div class="col-sm-6 bordvertiL50">
+                 Votre compte paypal est débité du montant total de votre commande dès la validation de votre paiement.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="wedge30">&nbsp;</div> 
+
+        <div class="row "  >
+          <div class=" col-sm-1">
+            <center>
+            <input type="radio" ng-model="modbq" value="3" />
+            </center>
+          </div>
+          <div class="col-sm-11 ">
+            <div class="row bordure"  >
+              <div class=" col-sm-4 fondGrisClair bordTop">
+                <h4 style="color:gray; ">Virement bancaire à la commande</h4>
+              </div>              
+
+              <div class="col-sm-8 bordvertiL50">
+                 Votre commande sera traitée dès réception de votre règlement bancaire sur notre compte (comptez 5 jours ouvrés à partir de votre ordre de virement).
+              </div>
+
+              <div ng-show="modbq=='3'" > 
+                <div class="row  ">
+                  <div class="col-sm-5" >
+                    <div class="row  bordure" style="margin-left:15px" >
+                      <span class="col-sm-12 " >Compte bancaire {{cpteBq}}</span>
+                      <span class="col-sm-12 ">IBAN {{IBAN}} </span>
+                      <span class="col-sm-12 ">Bank Identification Code (BIC) {{BIC}} </span>
+                      <span class="col-sm-12 ">Nom de la banque Banque {{nomBq}} </span>
+                    </div>
+                  </div>
+                </div>
+                <br/>
+                <div class="row">
+                  <div class="col-sm-12" >                 
+                    <span>Le montant de votre virement et le numéro de votre commande figurent sur la plage suivante récapitulatif de commande. Sans réception de votre virement dans les 10 jours, votre commande sera annulée.</span>
+                  </div>
+                </div>
+                <br/>
+                <div class="row">
+                  <div class="col-sm-12" >  
+                    <span>IMPORTANT : Nous vous remercions de <bold>mentionner votre numéro de commande lors de votre virement</bold>. Si cette référence fait défaut ou est incorrecte, votre paiement risque de ne pas être mis en rapport avec votre commande, dans ce cas l'envoi de votre colis sera retardé de plusieurs jours.</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="wedge30">&nbsp;</div> 
+
+        <div class="row "  >
+          <div class=" col-sm-1">
+            <center>
+            <input type="radio" ng-model="modbq" value="4" />
+            </center>
+          </div>
+          <div class="col-sm-11 ">
+            <div class="row bordure"  >
+              <div class=" col-sm-4 fondGrisClair bordTop">
+                <h4 style="color:gray; ">Chèque</h4>
+              </div>              
+
+              <div class="col-sm-8 bordvertiL70">
+                 Votre commande sera traitée dès réception de votre chèque (montant inférieur à 100€) ou dès encaissement sur notre compte (montant supérieur à 100 € - comptez 10 jours ouvrés à partir de votre envoi).
+              </div>
+              <div ng-show="modbq=='4'" > 
+                <div class="row">
+                  <div class="col-sm-6" >
+                    <div class="row bordure" style="margin-left:15px" >
+                      <span class="col-sm-12 " >Chèque à envoyer à l'adresse suivante : </span>
+                      <span class="col-sm-12 ">ENTREPRISE</span>
+                      <span class="col-sm-12 ">ADRESSE ENTREPRISE</span>
+                      <span class="col-sm-12 ">CP VILLE ENTRERISE</span>
+                    </div>
+                  </div>
+                </div>
+                <br/>
+                <div class="row">
+                  <div class="col-sm-12" >                 
+                    <span>Sans réception de votre chèque dans les 10 jours, votre commande sera annulée.</span>
+                  </div>
+                </div>
+                <br/>
+                <div class="row">
+                  <div class="col-sm-12" >  
+                    <span>IMPORTANT : Nous vous remercions de <bold>mentionner votre numéro de commande au dos de votre chèque</bold>. Si cette référence fait défaut ou est incorrecte, votre paiement risque de ne pas être mis en rapport avec votre commande, dans ce cas l'envoi de votre colis sera retardé de plusieurs jours.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="wedge30">&nbsp;</div> 
+
+        <br/>
+      </div>
+
+<!--  retour "<< Précédent" ou "Valider >>" : ******************************************* -->
+      <div class="bordure">
+        <div class="wedge5">&nbsp;</div>  
+        <div class="row">                 
+          <div class="col-xs-2">
+            <a href="#/panier"  class="decal-l" >
+              <button class="btn btn-greyish "  ><< Précèdent</button>
+            </a>
+          </div>
+
+          <div class="col-sm-offset-4 col-md-offset-8 col-xs-2" >
+            
+              <button class="btn btn-greyish decal-l" ng-click="showAlerte=true; " > Valider >></button>
+            
+          </div>
+        </div>         
+      </div>
+     
+      <div class="wedge5">&nbsp;</div> 
+
+    </div>
+  </div >
+
+<!-- BOÎTE DE DIALOGUE : paiement effectué -->
+  <div ng-show="showAlerte==true">
+    <div class="layer_cart_overlay" ></div>
+    <div class="layer_cart" >
+      <div class="layer_cart_product" style="background:#EEE;" ng-show="toggleVue==1">
+        <div class="wedge30">&nbsp;</div> 
+        <div class="row">
+            <div class="col-xs-12  " >
+              <h4 class="connexion">CONNEXION CENTRE DE PAIEMENT SÉCURISÉ</h4>
+            </div>
+        </div>   
+        <div class="wedge30">&nbsp;</div> 
+        <div class="row">
+            <div class="col-xs-12  bordure" >
+              <div class="wedge20">&nbsp;</div> 
+              <h4 class="connexion">Montant du règlement : {{total}} €</h4>
+              <div class="wedge20">&nbsp;</div> 
+            </div>
+        </div>  
+        <div class="row">    
+          <div class="col-xs-12 ">
+              <div class="wedge20">&nbsp;</div> 
+            <center>               
+             <button type="button" class="btn btn-warning" ng-click="toggleVue=2; validPaiement();" title="Accepter le règlement de la commande" >PAIEMENT ACCEPTÉ</button>               
+            </center>
+          </div>
+        </div> 
+        <div style="height:40px">&nbsp;</div>
+      </div> 
+
+      <div class="layer_cart_product" style="background:orange;" ng-show="toggleVue==2">    
+        <div class="row">
+          <div class="col-xs-12 " >
+            <div class="wedge60">&nbsp;</div> 
+            <h4 class="connexion">VOTRE PAIEMENT A BIEN ÉTÉ EFFECTUÉ</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 " >
+            <div class="wedge20">&nbsp;</div> 
+            <h4 class="connexion">NOUS VOUS EN REMERCIONS</h4>
+          </div>
+        </div>
+        <div class="wedge50">&nbsp;</div> 
+          
+        <div class="row">    
+          <div class="col-xs-offset-4 col-xs-4 ">
+            <center>               
+             <a ng-href="#/panier/true/true/true" ><button type="button" class="seConnect" ng-click="" title="Retour vers le panier" >OK</button>  </a>             
+            </center>
+          </div>
+        </div>  
+        <div style="height:40px">&nbsp;</div>
+
+      </div>
+    </div >
+  </div>
+
+</div>

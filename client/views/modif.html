@@ -1,0 +1,219 @@
+<div class="">
+  <h1>Administrateur<span style="font-style: italic; font-size: 10px; ">Test : 2 + 2 ={{2+2}}</span></h1>
+<section class="admin sectn" style=""  >
+  <form  ng-controller="ModifCtrl" >
+  		<div class=" bordure flottant" ng-style="showCateg2">
+		<fieldset>
+		<legend class="legend">Ajout d'une nouvelle catégorie : </legend>
+		<div>
+			<label for="lib" style="margin-bottom: 3px; margin-left: 25px; max-width: 20%;"> Libellé : </label><input type="text" ng-model="nvCateg2.libelle" placeholder="Nouvelle catégorie..." style="width: 150px; margin-bottom: 9px; margin-left: 5px; margin-top: -8px;" id="lib" />
+		</div>
+		<center>
+			<button type="button" class="btn btn-default "  ng-click="addCategorie2()" >OK</button>
+		</center>
+		</fieldset>
+	</div>
+	<div class="row" >
+		<div class="col-sm-7 bordure" >
+		<div class="row" ><br/>
+		    <div class="col-sm-5" >
+		    	<input type="text" style="min-width:99%" ng-model="editData.nom" placeholder="Nom du produit" />
+		    </div>	
+			<div class="col-sm-7 controls" >
+				<textarea rows="2" style="min-width:100%" ng-model="editData.descCourt" placeholder="Courte description" ></textarea>
+			</div> 
+			<div class="col-sm-12 controls" >
+				<textarea rows="3" style="min-width:100%" ng-model="editData.descLong" placeholder="Description détaillée" ></textarea>
+			</div> 
+			<div>
+				<table>
+				    <tr >
+					    <td style="min-width:25%" >URL de l'image  </td>
+					    <td colspan="3" ><input type="text" class="decal-g" ng-model="editData.urlimg" placeholder="Url image" style="min-width:100%"/></td>
+				    </tr>   
+
+				  	<tr>
+					  	<td >Catégorie </td>
+					  	<td class="decal-g">
+						  	<select class="dropdown " style="min-width:70%" ng-model="editData.categorie" placeholder="Categorie" >
+						  	<option ng-repeat="c in categories" value="{{c.libelle}}">{{c.libelle}}</option>
+						  	</select>
+						  	<button type="button" class="btn-plus btn-plus-pos1" title="Ajouter une catégorie" 
+						  	 ng-click="showCategorie2()">	+
+						  	</button>
+
+						 </td>
+
+					  	<td >Taille </td>
+					  	<td class="decal-g" ><input type="text" ng-model="editData.taille" placeholder="Taille" width="80%" /></td>
+				  	</tr>	
+					<tr >
+						<td >Référence </td>
+						<td class="decal-g" ><input type="text" ng-model="editData.reference" placeholder="000000" width="80%" /></td>
+
+					    <td  >Prix </td>
+					    <td class="decal-g"><input type="text" ng-model="editData.prix" placeholder="Prix" style="width: 100px;" />
+					    <span class="decal-g" > €</span></td>
+				    </tr>  
+
+				    <tr >
+					    <td >Stock </td>
+					    <td class="decal-g"><input type="text" ng-model="editData.stock" placeholder="Stock initial" style="width: 100px;"/>
+					    <span class="decal-g"> pièces</span></td>
+						<td >Poids </td>
+					    <td class="decal-g"><input type="text" ng-model="editData.poids" placeholder="Poids (frais port)" style="width: 100px;"/>
+					    <span class="decal-g"> grammes</span></td>				    
+					</tr>
+					<tr>
+					    <td style="text-align: right; padding-right: 0px;">Actif ? : </td>
+					    <td class="decal-g">
+					    <input type="radio" ng-model="editData.etat" value=1 >oui</input>
+					    <input type="radio" ng-model="editData.etat" value=0 />non
+					    
+						    <span ng-show="formData.etat==1" style="padding-left: 4px;font-style: italic;"> &#10132; actif</span>
+						    <span ng-show="formData.etat==0" style="padding-left: 4px;font-style: italic;"> &#10132; inactif </span>
+					    </td>
+				    </tr>  
+				</table>
+			</div><br/>
+			<div class="row control-group" >
+			    <div class="col-sm-4">
+			    	<center><img ng-src="{{editData.urlimg}}" style="width: 80px;" /></center>
+			    </div>
+			    <div class="col-sm-8">
+			    	<div ng-init="modifie=0">
+			    	<div class="row" ><br/>
+			    		<div class="col-sm-4" ><a class="" title="retour admin"  href="#/admin">
+				    	<button type="button" class="btn btn-default "  ng-click="">Retour</button></a>
+				    	</div>
+			    		<div class="col-sm-4" >
+				    	<button type="submit" class="btn btn-default " ng-show="modifie==0" ng-click="updateProduit(); modifie=1;">Modifier</button>
+				    	<button type="button" class="btn btn-success " ng-show="modifie==1" ng-click="">Modifié</button>
+				    	</div>
+			    		<div class="col-sm-4" >
+				    	<button type="submit" class="btn btn-default " ng-click="deleteProduit()">Supprimer</button>
+				    	</div>
+				    </div></div>
+			    </div>
+			</div><div>&nbsp; </div>
+
+		</div>
+		</div>
+		<div class="col-sm-5" >
+			<table class="font-min decal-g">
+			<tr >
+				<th>Voir</th>
+				<th>Supp</th>
+				<th>N°</th>
+				<th class="th-center">Cat</th>
+				<th class="th-center">Ref</th>
+				<th class="th-center">Nom</th>
+				<th class="th-center">Prix</th>
+				<th class="th-center">Stock</th>
+				<th>Actif</th>
+			</tr>
+			<tr>
+				<td colspan="2">
+					&nbsp;
+				</td>
+				<td></td>
+				<td>
+					<input type="text" ng-model="rech.cat" class="input-min input-20" title="Touche > ou < : sélectionne catégorie non définie"/>
+				</td>
+				<td>
+					<input type="text" ng-model="rech.ref" class="input-min input-30" title="Touche > ou < : sélectionne référence non définie" />
+				</td>
+				<td>
+					<input type="text" ng-model="rech.nom" placeholder="nom..." class="input-min" />
+				</td>
+				<td>
+					<table>
+						<tr>
+							<td><button type="button" ng-model="rech.comp1prix"  ng-click="rech.compprix='>'" class="btn-comp comp1" >></button></td>
+							<td rowspan="3">
+								<div class="rescomp"><input type="text" ng-model="rech.prix" class="input-min input-20"></div>
+							</td>
+						</tr>
+						<tr>
+							<td><button type="button" ng-model="rech.comp2prix" ng-click="rech.compprix='='" class="btn-comp comp2" >=</button></td>
+						</tr>
+						<tr>
+							<td><button type="button" ng-model="rech.comp3prix"  ng-click="rech.compprix='<'" class="btn-comp comp3" ><</button></td>
+						</tr>
+					</table>
+				</td>
+				<td>
+					<table>
+						<tr>
+							<td><button type="button" ng-model="rech.comp1stock"  ng-click="rech.compstock='>'" class="btn-comp comp1" >></button></td>
+							<td rowspan="3">
+								<div class="rescomp"><input type="text" ng-model="rech.stock" class="input-min input-20"></div>
+							</td>
+						</tr>
+						<tr>
+							<td><button type="button" ng-model="rech.comp2stock" ng-click="rech.compstock='='" class="btn-comp comp2" >=</button></td>
+						</tr>
+						<tr>
+							<td><button type="button" ng-model="rech.comp3stock"  ng-click="rech.compstock='<'" class="btn-comp comp3" ><</button></td>
+						</tr>
+					</table>
+				</td>
+				<td>
+					<table >
+						<tr>
+							<td><button type="button" ng-model="rech.etat1"  ng-click="rech.etat=''" class="btn-comp btn-lftetat etat1"  >tous</button></td>
+
+						</tr>
+						<tr>
+							<td><button type="button" ng-model="rech.etat2" ng-click="rech.etat='1'" class="btn-comp btn-lftetat etat2" >actif</button></td>
+						</tr>
+						<tr>
+							<td><button type="button" ng-model="rech.etat3"  ng-click="rech.etat='0'" class="btn-comp btn-lftetat etat3"  >inactif</button></td>
+						</tr>
+					</table>				
+				</td>
+			</tr>
+			<tr ng-repeat="p in produits" ng-hide="
+					!(reg(rech.cat , p.categorie))
+					||
+					!(reg(rech.ref, p.reference))
+					||
+					!(reg(rech.nom, p.nom))
+					||
+					!(comp(rech.prix, p.prix, rech.compprix))
+					||
+					!(comp(rech.stock, p.stock, rech.compstock))
+					||
+					(rech.etat!=p.etat && rech.etat)
+					">
+					<td><a class="glyphicon glyphicon-eye-open btn-eye" title="voir"  href="#/modif/{{p._id}}"></a></td>
+					<td><button class="btn-mult btn-mult-position" title="supprimer" ng-click="supprProduit(p)">X</button></td>
+					<td> 
+						{{$index+1}}
+					</td>			
+					<td>
+						{{p.categorie| limitTo:3}}
+					</td>
+					<td>
+						{{p.reference}}
+					</td>
+					<td class="decal-g" >
+						{{p.nom}}
+					</td>
+					<td>
+						{{p.prix}}
+					</td>
+					<td>
+						{{p.stock}}
+					</td>	
+					<td>
+						{{p.etat}}
+					</td>				
+				
+			</tr>
+			</table>			
+		</div>
+	</div>
+  </form>
+</section> 
+</div>

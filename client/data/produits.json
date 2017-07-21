@@ -1,0 +1,72 @@
+[
+	{
+		"_Id": "0000000000000001",
+		"Nom": "Latiaxis Mawae",
+		"UrlImg": "images/LatiaxisMawae.jpg",
+		"Categorie": "murex",
+		"Taille": "50 mm",
+		"Reference": "M10050",
+		"DescCourt": "Coquillage de la famille des Latiaxidae pêché par 100m au large des côtes du Japon",
+		"DescLong": "Les Latiaxidae sont proches des Muricidae ; ils révèlent des architectures très élaborées ; la plupart provient de l'Asie du Sud-Est",
+		"Prix": 35,
+		"Stock": 3,
+		"Etat": 1,
+		"Date": "07.03.2016"
+	},
+	{
+		"_Id": "0000000000000002",
+		"Nom": "Chicoreus Orchidiflorus",
+		"UrlImg": "images/ChicoreusOrchidiflorus.jpg",
+		"Categorie": "murex",
+		"Taille": "34 mm",
+		"Reference": "M10234",
+		"DescCourt": "Un joli coquillage pêché au large des côtes de la réunion à 27m",
+		"DescLong": "Ce beau coquillage se rencontre localement sur fonds algueux de l'océan indo-pacifique",
+		"Prix": 28,
+		"Stock": 0,
+		"Etat": 1,
+		"Date": "07.03.2016"
+	},	
+	{
+		"_Id": "0000000000000003",
+		"Nom": "Jenneria Pustulata",
+		"UrlImg": "images/JenneriaPustulata.jpg",
+		"Categorie": "porcelaines",
+		"Taille": "21 mm",
+		"Reference": "P10121",
+		"DescCourt": "Une porcelaine pustuleuse",
+		"DescLong": "bla bla bla",
+		"Prix": 3.50,
+		"Stock": 4,
+		"Etat": 1,
+		"Date": "10.03.2016"
+	},	
+	{
+		"_Id": "0000000000000004",
+		"Nom": "Tchatcheria Mirabilis",
+		"UrlImg": "images/TchatcheriaMirabilis.png",
+		"Categorie": "autres gasteropodes",
+		"Taille": "81 mm",
+		"Reference": "G10081",
+		"DescCourt": "Une curiosité architecturale",
+		"DescLong": "bla bla bla",
+		"Prix": 12.50,
+		"Stock": 1,
+		"Etat": 1,
+		"Date": "18.03.2016"
+	},
+		{
+		"_Id": "0000000000000005",
+		"Nom": "Tibia fusus",
+		"UrlImg": "images/TibiaFusus.jpg",
+		"Categorie": "autres gasteropodes",
+		"Taille": "253 mm",
+		"Reference": "G10125",
+		"DescCourt": "Une curiosité architecturale",
+		"DescLong": "bla bla bla",
+		"Prix": 15.70,
+		"Stock": 1,
+		"Etat": 1,
+		"Date": "18.03.2016"
+	}
+]

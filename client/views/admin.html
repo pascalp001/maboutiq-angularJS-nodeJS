@@ -1,0 +1,1318 @@
+<div class="" ng-show="admin" ng-controller="AdminCtrl"  >
+  <h1>Administrateur<span style="font-style: italic; font-size: 10px; min-height:150px; margin-left:-50px;">Test : 2 + 2 ={{2+2}}</span></h1>
+ <section style="">
+ 	<div class="plaqueMetal ">
+ 	<div class="vis1 ">&nbsp;</div>
+ 	<div class="vis2 ">&nbsp;</div>
+ 	<div class="vis3 ">&nbsp;</div>
+ 	<div class="vis4 ">&nbsp;</div>
+ 	<div class="wedge40">&nbsp;</div> 
+ 	<div class="row" style="position:absolute; top:70px; left:25px;">
+ 		<div class=" col-sm-2">
+ 		<button type="button" class="btn btn-admin1" ng-click="option=1;" ><span>{{nbCommdes+' '}} comandes</span><br/><span> reçues </span></button>
+ 		</div>
+  		<div class="col-sm-2">
+ 		<button type="button" class="btn btn-admin1" ng-click="option=2;">{{nbavis+' '}}avis <br/>reçus </button>
+ 		</div>		
+ 		 <div class="col-sm-2">
+ 		<button type="button" class="btn btn-admin1" ng-click="option=3;">Créer <br/>produit</button>
+ 		</div>
+ 		 <div class="col-sm-2">
+ 		<button type="button" class="btn btn-admin1" ng-click="option=3;">MAJ <br/>produit</button>
+ 		</div>
+ 		 <div class="col-sm-2">
+ 		<button type="button" class="btn btn-admin1" ng-click="option=4;">Gérer <br/>Droits </button>
+ 		</div>
+ 		 <div class="col-sm-2">
+ 		<button type="button" class="btn btn-admin1" ng-click="option=5;">Consult <br/>archives </button>
+ 		</div>
+ 	</div>
+ 	<div class="wedge30">&nbsp;</div> 
+ 	</div>
+ 	<div class="wedge80">&nbsp;</div> 
+ 	<div class="wedge80">&nbsp;</div> 
+	<div class="wedge50">&nbsp;</div> 
+ </section>
+ <section ng-show="option==1;" >
+
+ <div claa="bordure">
+ 	<!-- Affichage des commandes reçues -->
+		<div class="row">
+ 		<div class="col-sm-1">
+ 			<center>	
+ 			Date
+ 			</center>
+ 		</div>
+ 		<div class="col-sm-1">	
+ 			<center>
+ 			N°cmde
+ 			</center>
+ 		</div>
+ 		<div class="col-sm-2">	
+ 			<center>
+ 			Client
+ 			</center>
+ 		</div>
+ 		<div class="col-sm-1">	
+ 			<center>
+ 			Montant
+ 			</center>
+ 		</div>
+ 		<div class="col-sm-1">	
+ 			<center>
+ 			B.C.
+ 			</center>
+ 		</div>
+ 		<div class="col-sm-1">	
+ 		<center>
+ 			Traitement
+ 			</center>
+ 		</div>
+ 		<div class="col-sm-1">	
+ 			<center>
+ 			Facture
+ 			</center>
+ 		</div>
+ 		<div class="col-sm-1">	
+ 			<center>
+ 			B.L.
+ 			</center>
+ 		</div>
+ 		 <div class="col-sm-1">	
+ 		<center>
+ 			Livraison
+ 			</center>
+ 		</div>
+ 		<div class="col-sm-1">	
+ 			<center>
+ 			Archiver
+ 			</center>
+ 		</div>
+ 		<div class="col-sm-1">	
+ 			<center>
+ 			Annuler
+ 			</center>
+ 		</div>	 		
+ 	</div>
+ 	<hr class="hrf"/>
+ 	<div ng-repeat="c in commdes" ng-show="c.numcmde">
+ 		<!-- Affichage résumé d'une commande : -->
+ 		<div class="row">
+	 		<div class="col-sm-1">
+	 			{{c.date | date:'dd-MM-yyyy'}}
+	 		</div>
+	 		<div class="col-sm-1">
+	 			{{c.numcmde}}
+	 		</div>
+	 		<div class="col-sm-2">
+	 			<center>
+	 			{{c.titre+' '}}{{c.prenom+' '}}{{c.nom}}
+	 			</center>
+	 		</div>
+	 		<div class="col-sm-1">
+	 			<center>
+	 			{{c.total+' '}}
+	 			</center>
+	 		</div>
+	 		<div class="col-sm-1">
+	 			<button type="button" ng-class="{'btn btn-admin21':c.toggleIBC==false,'btn btn-admin22':c.toggleIBC==true}" ng-click="c.showEtat=1;">BC</button>
+	 		</div>
+	 		<div class="col-sm-1">
+	 			<button type="button" ng-class="{'btn btn-admin32':c.statut<3,'btn-admin31':c.statut>2 }"  ng-click="prepCmmde(c);">Préparé</button>
+	 		</div>
+	 		<div class="col-sm-1">
+	 			<button type="button" ng-class="{'btn btn-admin2':c.statut==1,'btn btn-admin21':c.statut>1 && c.toggleIF==false,'btn btn-admin22':c.statut>1 && c.toggleIF==true}" ng-click="c.showEtat=2;">Fact</button>
+	 		</div>
+	 		<div class="col-sm-1">
+	 			<button type="button" ng-class="{'btn btn-admin2':c.statut==1,'btn btn-admin21':c.statut>1 && c.toggleIBL==false,'btn btn-admin22':c.statut>1 && c.toggleIBL==true}" ng-click="c.showEtat=3;">BL</button>
+	 		</div>
+	 		<div class="col-sm-1">
+	 			<button type="button" ng-class="{'btn btn-admin32':c.statut<4,'btn-admin31':c.statut>3 }" ng-click="depLivCmmde(c)">Livré</button>
+	 		</div>
+	 		<div class="col-sm-1">
+	 			<button type="button" ng-class="{'btn btn-admin32':c.statut<6,'btn-admin31':c.statut>5 }" ng-click="archCmmde(c);">Archivé</button>
+	 		</div>
+	 		<div class="col-sm-1">
+	 			<button type="button" class="btn btn-admin4" ng-click="suppCmmde(c);">X</button>
+	 		</div>
+ 		</div>
+
+ 		<!-- Affichage d'un des bons de commande : ************************************ -->
+ 		<div ng-show="c.showEtat==1" class="" >
+ 			<div class="bordure">
+	 			<div class="row " >
+	 				<div class="col-md-2" >
+	 					<button type="button" class="btn btn-success" ng-click="imprimer('imprBC'); c.toggleIBC=!c.toggleIBC;"><img src="images/imprimer.png" class="imgxxs" title="Imprimer ce document"/>Imprimer</button>
+	 				</div>
+	  				<div class="col-md-2" >
+		 				<button type="button" class="btn btn-success" ng-click="c.showEtat=0;">Fermer</button>
+	 				</div>
+	 					
+	 			</div>
+	 			<div class="wedge10">&nbsp;</div> 
+ 			</div>
+ 			<!-- Document imprimable : -->
+ 			<div id="imprBC" ng-show="mmmmm">
+ 				<div class="wedge10">&nbsp;</div> 
+	 			<div class="row">
+	 				<div class="col-md-12" >
+		 				<center>
+		 				<h2>BON DE COMMANDE N° {{c.numcmde}}</h2> <h4>- date : {{c.date | date:'dd-MM-yyyy'}} - </h4>
+		 				</center>
+	 				</div>
+	 			</div>
+	 			<table>
+	 				<tr >
+	 					<td style="border:1px solid gray; width:200px">
+	 						<div  >
+				            	Entreprise
+				           	</div>
+				          	<div  >
+				             	N° et rue
+				           	</div>
+					        <div   >
+					            complt
+					        </div>
+					        <div  >
+					            cp et ville
+					        </div>
+					        <div  >
+					            tel
+					        </div>
+	 					</td>
+	 					<td style="width:300px">&nbsp;</td>
+	 					<td style="border:1px solid gray; width:200px">
+	 						<div  >
+				            <span style="font-size:1,2em">Adresse de facturation :</span>
+				            </div>
+				           <div >
+				            <span style="font-size:0.9em">{{c.titre+' '}}</span><span style="font-size:1em">{{c.prenom+' '}}{{c.nom}}</span>
+				           </div>
+
+				          <div >
+				             {{c.no+' '}}{{c.rue}}
+				           </div>
+				          <div  ng-show="complt!=''" >
+				             {{c.complt}}
+				          </div>
+				          <div  >
+				             {{c.cp+' '}}{{c.ville}}
+				          </div>
+				          <div  ng-show="pays!='France'">
+				             {{c.pays}}
+				          </div> 
+				          <div  >
+				             {{c.tel}}
+				          </div>     
+
+	 					</td>
+	 					<td style="width:50px">&nbsp;</td>
+	 					<td style="border:1px solid gray; width:200px">
+	 						<div  >
+				            <span style="font-size:1,2em">Adresse de livraison :</span>
+				            </div>
+				           <div >
+				            <span style="font-size:0.9em">{{c.titrel+' '}}</span><span style="font-size:1em">{{c.prenoml+' '}}{{c.noml}}</span>
+				           </div>
+
+				          <div >
+				             {{c.nol+' '}}{{c.ruel}}
+				           </div>
+				          <div  ng-show="compltl!=''" >
+				             {{c.compltl}}
+				          </div>
+				          <div  >
+				             {{c.cpl+' '}}{{c.villel}}
+				          </div>
+				          <div  ng-show="paysl!='France'">
+				             {{c.paysl}}
+				          </div> 
+				          <div  >
+				             {{c.tell}}
+				          </div>  
+				        </td>	 					
+	 				</tr>
+	 			</table>
+			    <div class="wedge30">&nbsp;</div>
+			    <div class="wedge30">&nbsp;</div> 
+			    <table style="width:100%">
+			    	<tr style="border-bottom: 1px solid gray;">
+			    		<th style="width:12%">Ref</th>
+			    		<th colspan="3" style="width:30%">nom article</th>
+			    		<th style="width:12%">taille</th>
+			    		<th style="width:12%">Quantité</th>
+			    		<th style="width:12%">Prix</th>
+			    		<th style="width:20%">Total</th>
+			    	</tr>
+			    	<div class="wedge5">&nbsp;</div> 
+			    	<tr ng-repeat="p in c.panier" style="text-align:center; border-bottom: 1px solid grey;">
+			    		<td>{{p.ref}}</td>
+			    		<td colspan="3">{{p.nom}}</td>
+			    		<td>{{p.taille}}</td>
+			    		<td>{{p.Qte}}</td>
+			    		<td>{{p.prix}}</td>
+			    		<td>{{p.prix * p.Qte}}</td>	
+
+			    	</tr> 
+			    	<tr ng-repeat="l in c.lignesVides">
+			    		<td colspan="8">&nbsp;</td>
+			    	</tr>
+			    	<tr style="border: 1px solid gray;">
+					  <td colspan="5" style="text-align:left;" >Sous-total TTC : </td>
+					  <td></td>
+					  <td></td>
+					  <td> {{c.sstotal+' '}}€ </td>     
+					</tr>  
+					<tr style="border: 1px solid gray;">
+						  <td colspan="6" style="text-align:left;" >Frais de port : 
+						  <em >&nbsp;({{c.msEnvoi}})</em>
+						  </td>
+						  <td  > &nbsp; </td>
+						  <td >{{c.msFrport}}</td>
+					</tr>
+					<tr style="border: 1px solid gray;">
+						<td colspan="6"><h4 style="text-align:left;">Total :</h4>
+				      	</td>
+				      	<td ></td>
+				      	<td  > <h4>{{c.total+' '}}€</h4>
+				      	</td>  
+				    </tr>
+			    	<tr style="border-bottom: 1px solid gray;">
+
+				    <td colspan="5" ></td>
+				    <td colspan="3">
+				      dont TVA : {{Math.round(c.total/1.20*0.2*100)/100+' '}} € et HT : {{Math.round(c.total/1.20*100)/100+' '}} €
+				    </td>  
+				    <div class="wedge5">&nbsp;</div> 		      
+			    	</tr> 
+			    </table>
+	 		</div>
+
+	 		<!-- Affichage écran : -->
+ 			<div id="" >
+ 				<div class="wedge10">&nbsp;</div> 
+	 			<div class="row">
+	 				<div class="col-md-12" >
+		 				<center>
+		 				<h2>BON DE COMMANDE N° {{c.numcmde}}</h2> <h4>- date : {{c.date | date:'dd-MM-yyyy'}} - </h4>
+		 				</center>
+	 				</div>
+	 			</div>
+	  			<div  class="row" >
+			     	<div class="col-xs-9 col-sm-9 col-md-3 bordure" >
+				        <div class="row " >
+				           <div class="col-md-12" >
+				            Entreprise
+				           </div>
+				          <div class="col-md-12" >
+				             N° et rue
+				           </div>
+				          <div class="col-md-12"  >
+				             complt
+				          </div>
+				          <div class="col-md-12" >
+				             cp et ville
+				          </div>
+				          <div class="col-md-12" >
+				             tel
+				          </div>   
+				    	</div>
+			    	</div>
+
+			        <div class="col-xs-9 col-sm-offset-3 col-md-offset-2 col-sm-5 col-md-3 bordure" >
+				        <div class="row "  >
+				           <div class="col-md-12" >
+				            <span style="font-size:1,2em">Adresse de facturation :</span>
+				           </div>
+				        </div>  
+				        <div class="row " >
+				           <div class="col-md-12" >
+				            <span style="font-size:0.9em">{{c.titre+' '}}</span><span style="font-size:1em">{{c.prenom+' '}}{{c.nom}}</span>
+				           </div>
+				        </div>  
+				        <div class="row "  >
+				          <div class="col-md-12" >
+				             {{c.no+' '}}{{c.rue}}
+				           </div>
+				          <div class="col-md-12" ng-show="complt!=''" >
+				             {{c.complt}}
+				          </div>
+				          <div class="col-md-12" >
+				             {{c.cp+' '}}{{c.ville}}
+				          </div>
+				          <div class="col-md-12" ng-show="pays!='France'">
+				             {{c.pays}}
+				          </div> 
+				          <div class="col-md-12" >
+				             {{c.tel}}
+				          </div>     
+				        </div> 
+			        </div>
+
+			        <div class="col-xs-9 col-sm-offset-2 col-sm-5 col-md-offset-1 col-md-3 bordure"  >
+				        <div class="row "  >
+				           <div class="col-md-12" >
+				            <span style="font-size:1,2em">Adresse de livraison :</span>
+				           </div>
+				        </div>  
+				        <div class="row " >
+				           <div class="col-md-12" >
+				            <span style="font-size:0.9em">{{c.titrel+' '}}</span><span style="font-size:1em">{{c.prenoml+' '}}{{c.noml}}</span>
+				           </div>
+				        </div>  
+				        <div class="row "  >
+				          <div class="col-md-12" >
+				             {{c.nol+' '}}{{c.ruel}}
+				           </div>
+				          <div class="col-md-12"  >
+				             {{c.compltl}}
+				          </div>
+				          <div class="col-md-12" >
+				             {{c.cpl+' '}}{{c.villel}}
+				          </div>
+				          <div class="col-md-12" ng-show="paysl!='France'">
+				             {{c.paysl}}
+				          </div> 
+				          <div class="col-md-12" >
+				             {{c.tell}}
+				          </div>     
+				        </div> 
+			        </div>
+			    </div> 
+			    <hr class="hrf" />
+			    <div class="wedge5">&nbsp;</div> 
+			    <div class="row" >
+			    	<div class="col-md-2"  >
+			    		Ref
+			    	</div>
+			    	<div class="col-md-4"  >
+			    		nom article
+			    	</div>	
+			    	<div class="col-md-2"  >
+			    		taille
+			    	</div>
+			    	<div class="col-md-1"  >
+			    		Quantité
+			    	</div>
+			    	<div class="col-md-1"  >
+			    		Prix
+			    	</div>    
+			    	<div class="col-md-2"  >
+			    		Total
+			    	</div>  	
+			    </div>
+			    <div class="wedge5">&nbsp;</div> 
+			    <hr class="hrf" />
+			    <div class="wedge5">&nbsp;</div> 
+			    <div ng-repeat="p in c.panier" class="row">
+			    	<div class="col-md-2"  >
+			    		{{p.ref}}
+			    	</div>
+			    	<div class="col-md-4"  >
+			    		{{p.nom}}
+			    	</div>	
+			    	<div class="col-md-2"  >
+			    		{{p.taille}}
+			    	</div>
+			    	<div class="col-md-1"  >
+			    		{{p.Qte}}
+			    	</div>
+			    	<div class="col-md-1"  >
+			    		{{p.prix}}
+			    	</div>
+		    		<div class="col-md-2"  >
+			    		{{p.prix * p.Qte}}
+			    	</div>
+			    	<div class="wedge5">&nbsp;</div> 
+			    	<hr class="hrl"    />	
+			    	<div class="wedge5">&nbsp;</div> 
+			    </div>
+				<div class="wedge40">&nbsp;</div> 
+	  			<!-- Frais de port :  -->
+				<div class="row bordure " >
+					<div class="col-md-5 " >
+					  <div class="h5" style="color:#bbb">Sous-total TTC : </div>
+					</div>
+					<div class="col-md-3" > &nbsp; </div>
+					<div class="col-md-2" > &nbsp; </div> 
+					<div class="col-md-2 bordverti" >
+					  <div class="h5"> {{c.sstotal+' '}}€ </div>     
+					</div>   
+				</div>
+				<div class="row bordure " style="color:#bbb">
+					<div class="col-md-5 " >
+					  <div class="h5">Frais de port : 
+					  <span ng-show="c.modpost==1">&nbsp;(Envoi par Mondial-Relay)</span>
+					  <span ng-show="c.modpost==2">&nbsp;(Envoi en Colissimo par la poste)</span>
+					  <span ng-show="c.modpost==3">&nbsp;(Envoi en Lettre-Suivie par la poste)</span>
+					  </div>
+					</div>
+					<div class="col-md-3" > &nbsp; </div>
+					<div class="col-md-2" > &nbsp; </div> 
+					<div class="col-md-2 bordverti" >
+					  <div class="h5" ng-show="c.frport>0">{{c.frport+' '}}€</div>
+					  <div class="h5" ng-show="c.frport==0"><em>Offerts</em></div>
+					</div>  
+				</div>
+			  
+			     <!-- Total : ************************************** -->
+			    <div class="row bordure" >
+			      <div class="col-md-5 " >
+			        <h4>Total :</h4>
+			      </div>
+			      <div class="col-md-3" > &nbsp; </div>
+			      <div class="col-md-2" > &nbsp; </div> 
+			      <div class="col-md-2 bordverti" >
+			        <h4>{{c.total+' '}}€</h4>
+			      </div>  
+			    </div>
+			    
+			    <div class="row bordure" >
+				    <div class="wedge5">&nbsp;</div> 
+				    <div class="col-md-offset-8 col-md-4 " >
+				      dont TVA : {{Math.round(c.total/1.20*0.2*100)/100+' '}} € et HT : {{Math.round(c.total/1.20*100)/100+' '}} €
+				    </div>  
+				    <div class="wedge5">&nbsp;</div> 		      
+			    </div> 
+
+		    </div> 
+		</div>
+
+ 	<!-- Affichage d'une des factures : **************************************** -->
+ 		<div ng-show="c.showEtat==2" class="">
+ 			<div class="bordure">
+	 			<div class="row ">
+	 				<div class="col-md-2" >
+	 					<a href="" ng-click="imprimer('imprFact'); "><button type="button" class="btn btn-success" ng-click=""><img src="images/imprimer.png" class="imgxxs" title="Imprimer ce document"/>Imprimer</button></a>
+	 				</div>
+	  				<div class="col-md-2" >
+		 				<button type="button" class="btn btn-success" ng-click="c.showEtat=0;">Fermer</button>
+	 				</div>	 				
+	 			</div>
+	 			<div class="wedge10">&nbsp;</div> 
+ 			</div>
+ 			<!-- Document imprimable : -->
+ 			<div id="imprFact" ng-show="mmmmm">
+ 				<div class="wedge10">&nbsp;</div> 
+	 			<div class="row">
+	 				<div class="col-md-12" >
+		 				<center>
+		 				<h2>FACTURE N° {{c.numcmde}}</h2> <h4>- date : {{c.date | date:'dd-MM-yyyy'}} - </h4>
+		 				</center>
+	 				</div>
+	 			</div>
+	 			<table>
+	 				<tr >
+	 					<td style="border:1px solid gray; width:200px">
+	 						<div  >
+				            	Entreprise
+				           	</div>
+				          	<div  >
+				             	N° et rue
+				           	</div>
+					        <div   >
+					            complt
+					        </div>
+					        <div  >
+					            cp et ville
+					        </div>
+					        <div  >
+					            tel
+					        </div>
+	 					</td>
+	 					<td style="width:520px">&nbsp;</td>
+	 					<td style="border:1px solid gray; width:200px">
+	 						<div  >
+				            <span style="font-size:1,2em">Adresse de facturation :</span>
+				            </div>
+				           <div >
+				            <span style="font-size:0.9em">{{c.titre+' '}}</span><span style="font-size:1em">{{c.prenom+' '}}{{c.nom}}</span>
+				           </div>
+
+				          <div >
+				             {{c.no+' '}}{{c.rue}}
+				           </div>
+				          <div  ng-show="complt!=''" >
+				             {{c.complt}}
+				          </div>
+				          <div  >
+				             {{c.cp+' '}}{{c.ville}}
+				          </div>
+				          <div  ng-show="pays!='France'">
+				             {{c.pays}}
+				          </div> 
+				          <div  >
+				             {{c.tel}}
+				          </div>     
+
+	 					</td> 					
+	 				</tr>
+	 			</table>
+			    <div class="wedge30">&nbsp;</div>
+			    <div class="wedge30">&nbsp;</div> 
+			    <table style="width:100%">
+			    	<tr style="border-bottom: 1px solid gray;">
+			    		<th style="width:12%">Ref</th>
+			    		<th colspan="3" style="width:30%">nom article</th>
+			    		<th style="width:12%">taille</th>
+			    		<th style="width:12%">Quantité</th>
+			    		<th style="width:12%">Prix</th>
+			    		<th style="width:20%">Total</th>
+			    	</tr>
+			    	<div class="wedge5">&nbsp;</div> 
+			    	<tr ng-repeat="p in c.panier" style="text-align:center; border-bottom: 1px solid grey;">
+			    		<td>{{p.ref}}</td>
+			    		<td colspan="3" >{{p.nom}}</td>
+			    		<td>{{p.taille}}</td>
+			    		<td>{{p.Qte}}</td>
+			    		<td>{{p.prix}}</td>
+			    		<td>{{p.prix * p.Qte}}</td>	
+
+			    	</tr> 
+			    	<tr ng-repeat="l in c.lignesVides">
+			    		<td colspan="8">&nbsp;</td>
+			    	</tr>
+			    	<tr><td>&nbsp;</td></tr><tr><td>&nbsp;</td></tr><tr><td>&nbsp;</td></tr><tr><td>&nbsp;</td></tr>
+			    	<tr style="border: 1px solid gray;">
+					  <td colspan="7" style="text-align:left;" >Sous-total TTC : </td>
+					  <td> {{c.sstotal+' '}}€ </td>     
+					</tr>  
+					<tr style="border: 1px solid gray;">
+						  <td colspan="7" style="text-align:left;" >Frais de port : 
+						  
+						  </td>
+						  <td >{{c.msFrport}}</td>
+					</tr>
+					<tr style="border: 1px solid gray;">
+						<td colspan="7"><h4 style="text-align:left;">Total :</h4>
+				      	</td>
+				      	<td  > <h4>{{c.total+' '}}€</h4>
+				      	</td>  
+				    </tr>
+			    	<tr style="border-bottom: 1px solid gray;">
+
+				    <td colspan="3" ></td>
+				    <td colspan="3">
+				      dont TVA : {{Math.round(c.total/1.20*0.2*100)/100+' '}} € et HT : {{Math.round(c.total/1.20*100)/100+' '}} €
+				    </td>  
+				    <div class="wedge5">&nbsp;</div> 		      
+			    	</tr> 
+
+			    <div class="wedge10">&nbsp;</div> 	
+			    <tr>
+			    	<td colspan="5">
+				    	Règlement effectué ce jour par 
+				    	<span > {{c.msRegl}}</span>
+				    </td>	
+				</tr> 
+
+			    </table>
+	 		</div>
+
+	 		<!-- Affichage écran : -->
+ 			<div  > 
+ 				<div class="wedge10">&nbsp;</div> 
+	 			<div  class="row" >
+			     	<div class="col-xs-9 col-sm-5 col-md-3 bordure" >
+				        <div class="row " >
+				           <div class="col-md-12" >
+				            Entreprise
+				           </div>
+				          <div class="col-md-12" >
+				             N° et rue
+				           </div>
+				          <div class="col-md-12"  >
+				             complt
+				          </div>
+				          <div class="col-md-12" >
+				             cp et ville
+				          </div>
+				          <div class="col-md-12" >
+				             tel
+				          </div>   
+				    	</div>
+			    	</div>
+			    </div>
+	 			<div class="row">
+	 				<div class="col-md-12" >
+		 				<center>
+		 				<h2>FACTURE N° {{c.numcmde}}</h2> <h4>- date : {{c.date | date:'dd-MM-yyyy'}} - </h4>
+		 				</center>
+	 				</div>
+	 			</div>
+	 			<div  class="row" >
+			      <div class="col-xs-9 col-sm-5 col-md-3 bordure" >
+			        <div class="row "  >
+			           <div class="col-md-12" >
+			            <span style="font-size:1,2em">Adresse de facturation :</span>
+			           </div>
+			        </div>  
+			        <div class="row " >
+			           <div class="col-md-12" >
+			            <span style="font-size:0.9em">{{c.titre+' '}}</span><span style="font-size:1em">{{c.prenom+' '}}{{c.nom}}</span>
+			           </div>
+			        </div>  
+			        <div class="row "  >
+			          <div class="col-md-12" >
+			             {{c.no+' '}}{{c.rue}}
+			           </div>
+			          <div class="col-md-12" ng-show="complt!=''" >
+			             {{c.complt}}
+			          </div>
+			          <div class="col-md-12" >
+			             {{c.cp+' '}}{{c.ville}}
+			          </div>
+			          <div class="col-md-12" ng-show="pays!='France'">
+			             {{c.pays}}
+			          </div> 
+			          <div class="col-md-12" >
+			             {{c.tel}}
+			          </div>     
+			        </div> 
+			      </div>
+
+			    </div>
+			    <div class="wedge30">&nbsp;</div> 
+			    <hr class="hrf" />
+			    <div class="wedge5">&nbsp;</div> 
+			    <div class="row" >
+			    	<div class="col-md-2"  >
+			    		Ref
+			    	</div>
+			    	<div class="col-md-4"  >
+			    		Nom article
+			    	</div>	
+			    	<div class="col-md-2"  >
+			    		Taille
+			    	</div>
+			    	<div class="col-md-1"  >
+			    		Quantité
+			    	</div>
+			    	<div class="col-md-1"  >
+			    		Prix
+			    	</div>    
+			    	<div class="col-md-2"  >
+			    		Sous-total
+			    	</div>  	
+			    </div>
+			    <div class="wedge5">&nbsp;</div> 
+			    <hr class="hrf" />
+			    <div class="wedge5">&nbsp;</div> 
+			    <div ng-repeat="p in c.panier" class="row">
+			    	<div class="col-md-2"  >
+			    		{{p.ref}}
+			    	</div>
+			    	<div class="col-md-4"  >
+			    		{{p.nom}}
+			    	</div>	
+			    	<div class="col-md-2"  >
+			    		{{p.taille}}
+			    	</div>
+			    	<div class="col-md-1"  >
+			    		{{p.Qte}}
+			    	</div>
+			    	<div class="col-md-1"  >
+			    		{{p.prix}}
+			    	</div>
+		    		<div class="col-md-2"  >
+			    		{{p.prix * p.Qte}}
+			    	</div>
+			    	<div class="wedge5">&nbsp;</div> 
+			    	<hr class="hrl"    />	
+			    	<div class="wedge5">&nbsp;</div> 
+			    </div>
+				<div class="wedge40">&nbsp;</div> 
+	  			<!-- Frais de port :  -->
+				<div class="row bordure " >
+					<div class="col-md-5 " >
+					  <div class="h5" style="color:#bbb">Sous-total TTC : </div>
+					</div>
+					<div class="col-md-3" > &nbsp; </div>
+					<div class="col-md-2" > &nbsp; </div> 
+					<div class="col-md-2 bordverti" >
+					  <div class="h5"> {{c.sstotal+' '}}€ </div>     
+					</div>   
+				</div>
+				<div class="row bordure " style="color:#bbb">
+					<div class="col-md-5 " >
+					  <div class="h5">Frais de port : 
+					  <span ng-show="c.modpost==1">&nbsp;(Envoi par Mondial-Relay)</span>
+					  <span ng-show="c.modpost==2">&nbsp;(Envoi en Colissimo par la poste)</span>
+					  <span ng-show="c.modpost==3">&nbsp;(Envoi en Lettre-Suivie par la poste)</span>
+					  </div>
+					</div>
+					<div class="col-md-3" > &nbsp; </div>
+					<div class="col-md-2" > &nbsp; </div> 
+					<div class="col-md-2 bordverti" >
+					  <div class="h5" ng-show="c.frport>0">{{c.frport+' '}}€</div>
+					  <div class="h5" ng-show="c.frport==0"><em>Offerts</em></div>
+					</div>  
+				</div>
+			  
+			     <!-- Total : ************************************** -->
+			    <div class="row bordure" >
+			      <div class="col-md-5 " >
+			        <h4>Total :</h4>
+			      </div>
+			      <div class="col-md-3" > &nbsp; </div>
+			      <div class="col-md-2" > &nbsp; </div> 
+			      <div class="col-md-2 bordverti" >
+			        <h4>{{c.total+' '}}€</h4>
+			      </div>  
+			    </div>
+			    
+			    <div class="row bordure" >
+			    	<div class="wedge5">&nbsp;</div> 
+			      	<div class="col-md-offset-8 col-md-4 " >
+			      	dont TVA : {{Math.round(c.total/1.20*0.2*100)/100+' '}} € et HT : {{Math.round(c.total/1.20*100)/100+' '}} €
+			      	</div>  
+			    	<div class="wedge5">&nbsp;</div> 		      
+			    </div>  
+			    <div class="wedge10">&nbsp;</div> 	
+			    <div class="row bordure" >
+				    <div class="col-md-offset-2 col-md-8 ">
+				    	Règlement effectué ce jour par 
+				    	<span ng-show="c.modRegl==1"> carte bancaire</span>
+				    	<span ng-show="c.modRegl==2"> virement compte Paypal</span>
+				    	<span ng-show="c.modRegl==3"> virement bancaire</span>
+				    	<span ng-show="c.modRegl==4"> chèque</span>
+				    </div>	
+				</div> 
+			</div>   
+		</div>
+
+ 		<!-- Affichage d'un des bons de livraison : ********************************** -->
+ 		<div ng-show="c.showEtat==3" >
+ 			<div class="bordure">
+	 			<div class="row ">
+	 				<div class="col-md-2" >
+	 					<a href="" ng-click="imprimer('imprBL'); "><button type="button" class="btn btn-success" ng-click=""><img src="images/imprimer.png" class="imgxxs" title="Imprimer ce document"/>Imprimer</button></a>
+	 				</div>
+	  				<div class="col-md-2" >
+		 				<button type="button" class="btn btn-success" ng-click="c.showEtat==0;">Fermer</button>
+	 				</div> 				
+	 			</div>
+	 			<div class="wedge10">&nbsp;</div> 
+ 			</div>
+
+ 			<!-- Document imprimable : -->
+ 			<div id="imprBL" ng-show="mmmmm">
+ 				<div class="wedge10">&nbsp;</div> 
+	 			<div class="row">
+	 				<div class="col-md-12" >
+		 				<center>
+		 				<h2>BON DE LIVRAISON N° {{c.numcmde}}</h2> <h4>- date : {{c.date | date:'dd-MM-yyyy'}} - </h4>
+		 				</center>
+	 				</div>
+	 			</div>
+	 			<table>
+	 				<tr >
+	 					<td style="border:1px solid gray; width:200px">
+	 						<div  >
+				            	Entreprise
+				           	</div>
+				          	<div  >
+				             	N° et rue
+				           	</div>
+					        <div   >
+					            complt
+					        </div>
+					        <div  >
+					            cp et ville
+					        </div>
+					        <div  >
+					            tel
+					        </div>
+	 					</td>
+
+	 					<td style="width:500px">&nbsp;</td>
+	 					<td style="border:1px solid gray; width:200px">
+	 						<div  >
+				            <span style="font-size:1,2em">Adresse de livraison :</span>
+				            </div>
+				           <div >
+				            <span style="font-size:0.9em">{{c.titrel+' '}}</span><span style="font-size:1em">{{c.prenoml+' '}}{{c.noml}}</span>
+				           </div>
+
+				          <div >
+				             {{c.nol+' '}}{{c.ruel}}
+				           </div>
+				          <div  ng-show="compltl!=''" >
+				             {{c.compltl}}
+				          </div>
+				          <div  >
+				             {{c.cpl+' '}}{{c.villel}}
+				          </div>
+				          <div  ng-show="paysl!='France'">
+				             {{c.paysl}}
+				          </div> 
+				          <div  >
+				             {{c.tell}}
+				          </div>  
+				        </td>	 					
+	 				</tr>
+	 			</table>
+			    <div class="wedge30">&nbsp;</div>
+			    <div class="wedge30">&nbsp;</div> 
+			    <table style="width:100%">
+			    	<tr style="border-bottom: 1px solid gray;">
+			    		<th style="width:12%">Ref</th>
+			    		<th colspan="5" style="width:30%">nom article</th>
+			    		<th style="width:12%">taille</th>
+			    		<th style="width:12%">Quantité</th>
+			    	</tr>
+			    	<div class="wedge5">&nbsp;</div> 
+			    	<tr ng-repeat="p in c.panier" style="text-align:center; border-bottom: 1px solid grey;">
+			    		<td>{{p.ref}}</td>
+			    		<td colspan="5">{{p.nom}}</td>
+			    		<td>{{p.taille}}</td>
+			    		<td>{{p.Qte}}</td>
+			    	</tr> 
+			    	<tr ng-repeat="l in c.lignesVides">
+			    		<td colspan="8">&nbsp;</td>
+			    	</tr>
+					<tr style="border: 1px solid gray;">
+						  <td colspan="7" style="text-align:left;" >Frais de port : 
+						  
+						  </td>
+						  <td >{{c.msFrport}}</td>
+					</tr>
+					<tr style="border: 1px solid gray;">
+						<td colspan="7"><h4 style="text-align:left;">Poids calculé :</h4>
+				      	</td>
+				      	<td  > <h4>{{c.poids+' '}}g</h4>
+				      	</td>  
+				    </tr>
+			    	<tr style="border-bottom: 1px solid gray;">
+					    <td colspan="2">
+					        <h4>Livraison effectuée </h4>
+					    </td>
+			    		<td colspan="3"><h4> {{c.msEnvoi}}</h4></td>
+					    <td colspan="2"><h4> Expédié ce jour : </h4></td> 
+					    <td >
+					        <h4>{{aujui | date:'dd-MM-yyyy'}}</h4>
+					    </td>  
+			    	</tr>
+
+			    </table>
+	 		</div>
+
+	 		<!-- Affichage écran : -->
+ 			<div " > 
+ 				<div class="wedge10">&nbsp;</div> 
+	 			<div  class="row" >
+			     	<div class="col-xs-9 col-sm-5 col-md-3 bordure" >
+				        <div class="row " >
+				           <div class="col-md-12" >
+				            Entreprise
+				           </div>
+				          <div class="col-md-12" >
+				             N° et rue
+				           </div>
+				          <div class="col-md-12"  >
+				             complt
+				          </div>
+				          <div class="col-md-12" >
+				             cp et ville
+				          </div>
+				          <div class="col-md-12" >
+				             tel
+				          </div>   
+				    	</div>
+			    	</div>
+			    </div>
+	 			<div class="row">
+	 				<div class="col-md-12" >
+		 				<center>
+		 				<h2>BON DE LIVRAISON N° {{c.numcmde}}</h2> <h4>- date : {{c.date | date:'dd-MM-yyyy'}} - </h4>
+		 				</center>
+	 				</div>
+	 			</div>
+	 			<div  class="row" >
+
+			      <div class=" col-md-3 bordure"  >
+			        <div class="row "  >
+			           <div class="col-md-12" >
+			            <span style="font-size:1,2em">Adresse de livraison :</span>
+			           </div>
+			        </div>  
+			        <div class="row " >
+			           <div class="col-md-12" >
+			            <span style="font-size:0.9em">{{c.titrel+' '}}</span><span style="font-size:1em">{{c.prenoml+' '}}{{c.noml}}</span>
+			           </div>
+			        </div>  
+			        <div class="row "  >
+			          <div class="col-md-12" >
+			             {{c.nol+' '}}{{c.ruel}}
+			           </div>
+			          <div class="col-md-12"  >
+			             {{c.compltl}}
+			          </div>
+			          <div class="col-md-12" >
+			             {{c.cpl+' '}}{{c.villel}}
+			          </div>
+			          <div class="col-md-12" ng-show="paysl!='France'">
+			             {{c.paysl}}
+			          </div> 
+			          <div class="col-md-12" >
+			             {{c.tell}}
+			          </div>     
+			        </div> 
+			      </div>
+			    </div>
+			    <div class="wedge30">&nbsp;</div> 
+			    <hr class="hrf" />
+			    <div class="wedge5">&nbsp;</div> 
+			    <div class="row" >
+			    	<div class="col-md-2"  >
+			    		Ref
+			    	</div>
+			    	<div class="col-md-4"  >
+			    		nom article
+			    	</div>	
+			    	<div class="col-md-2"  >
+			    		taille
+			    	</div>
+			    	<div class="col-md-2"  >
+			    		Quantité
+			    	</div>
+		
+			    </div>
+			    <div class="wedge5">&nbsp;</div> 
+			    <hr class="hrf" />
+			    <div class="wedge5">&nbsp;</div> 
+			    <div ng-repeat="p in c.panier" class="row">
+			    	<div class="col-md-2"  >
+			    		{{p.ref}}
+			    	</div>
+			    	<div class="col-md-4"  >
+			    		{{p.nom}}
+			    	</div>	
+			    	<div class="col-md-2"  >
+			    		{{p.taille}}
+			    	</div>
+			    	<div class="col-md-2"  >
+			    		{{p.Qte}}
+			    	</div>
+
+			    	<div class="wedge5">&nbsp;</div> 
+			    	<hr class="hrl"    />	
+			    	<div class="wedge5">&nbsp;</div> 
+			    </div>
+				<div class="wedge40">&nbsp;</div> 
+	  <!-- Frais de port : ****************************** -->
+
+				<div class="row bordure " style="color:#bbb">
+					<div class="col-md-5 " >
+					  <div class="h5">Montant des frais de port : 
+					  </div>
+					</div>
+					<div class="col-md-3" > &nbsp; </div>
+					<div class="col-md-2" > &nbsp; </div> 
+					<div class="col-md-2 bordverti" >
+					  <div class="h5" ng-show="c.frport>0">{{c.frport+' '}}€</div>
+					  <div class="h5" ng-show="c.frport==0"><em>Offerts</em></div>
+					</div>  
+				</div>
+				<div class="row bordure " style="color:#bbb">
+					<div class="col-md-5 " >
+					  <div class="h5">Poids calculé : 
+					  </div>
+					</div>
+					<div class="col-md-3" > &nbsp; </div>
+					<div class="col-md-2" > &nbsp; </div> 
+					<div class="col-md-2 bordverti" >
+					  <div class="h5" >{{c.poids+' '}}g</div>
+					</div>  
+				</div>
+
+			    <div class="row bordure" >
+			      <div class="col-md-4 " >
+			        <h4>Livraison effectuée </h4>
+			      </div>
+			      <div class="col-md-3" > 
+					  <span ng-show="c.modpost==1">&nbsp; par Mondial-Relay</span>
+					  <span ng-show="c.modpost==2">&nbsp; en Colissimo par la poste</span>
+					  <span ng-show="c.modpost==3">&nbsp; en Lettre-Suivie par la poste</span>
+			      </div>
+			      <div class="col-md-3" > Expédié ce jour : </div> 
+			      <div class="col-md-2 bordverti" >
+			        <h4>{{aujui | date:'dd-MM-yyyy'}}</h4>
+			      </div>  
+			    </div>
+		    </div>
+		</div>
+	<div class="wedge5">&nbsp;</div> 
+ 	<hr class="hrl"/>
+	<div class="wedge5">&nbsp;</div> 	
+ 	</div>
+ 	<hr class="hrb" style="margin-top:-25px" />
+   </div>
+</section>
+
+<!-- AFFICHAGE CREATION NOUVEAU PRODUIT et accès MODIFICATION PRODUIT ******** -->
+<section class="admin sectn" ng-show="option==3;">
+  <!-- Fenêtre de saisie d'une nouvelle catégorie : -->
+  <form   >
+
+	<div class=" bordure flottant" ng-style="showCateg">
+		<fieldset>
+			<legend class="legend">Ajout d'une nouvelle catégorie : </legend>
+			<div>
+				<label for="lib" style="margin-bottom: 3px; margin-left: 25px; max-width: 20%;"> Libellé : </label><input type="text" ng-model="nvCateg.libelle" placeholder="Nouvelle catégorie..." style="width: 150px; margin-bottom: 9px; margin-left: 5px; margin-top: -8px;" id="lib" />
+			</div>
+			<center>
+				<button type="button" class="btn btn-default "  ng-click="addCategorie()" >OK</button>
+			</center>
+		</fieldset>
+	</div>
+<!-- section saisie d'un nouveau produit : -->
+	<div class="row" >
+		<div class="col-sm-7 bordure" >
+			<div class="row" ><br/>
+			    <div class="col-sm-5" >
+			    	<input type="text" style="min-width:99%" ng-model="formData.nom" placeholder="Nom du produit" />
+			    </div>	
+				<div class="col-sm-7 controls" >
+					<textarea rows="2" style="min-width:100%" ng-model="formData.descCourt" placeholder="Courte description" ></textarea>
+				</div> 
+				<div class="col-sm-12 controls" >
+					<textarea rows="3" style="min-width:100%" ng-model="formData.descLong" placeholder="Description détaillée" ></textarea>
+				</div> 
+				<div>
+					<table>
+					    <tr >
+						    <td style="min-width:25%" >URL de l'image  </td>
+						    <td colspan="3" ><input type="text" class="decal-g" ng-model="formData.urlimg" placeholder="Url image" style="min-width:100%"/></td>
+					    </tr>   
+
+					  	<tr>
+						  	<td >Catégorie </td>
+						  	<td class="decal-g">
+							  	<select class="dropdown " style="min-width:70%" ng-model="formData.categorie" placeholder="Categorie" ng-style="stylCateg"  ng-change="stylCateg = {'background-color':'white'};">
+							  	<option ng-repeat="c in categories" value="{{c.libelle}}">{{c.libelle}}</option>
+							  	</select>
+							  	<button type="button" class="btn-plus btn-plus-pos1" title="Ajouter une catégorie" 
+							  	 ng-click="showCategorie()">	+
+							  	</button>
+
+							 </td>
+
+						  	<td >Taille </td>
+						  	<td class="decal-g" ><input type="text" ng-model="formData.taille" placeholder="Taille" width="80%" /></td>
+					  	</tr>	
+						<tr >
+							<td >Référence </td>
+							<td class="decal-g" ><input type="text" ng-model="formData.reference" placeholder="000000" ng-style="stylRef" ng-change="stylRef = {'color':'black'};" width="80%" /></td>
+
+						    <td  >Prix </td>
+						    <td class="decal-g"><input type="text" ng-model="formData.prix" placeholder="Prix" style="width: 100px;" ng-style="stylPrix" ng-change="stylPrix = {'color':'black'};"/>
+						    <span class="decal-g" > €</span></td>
+					    </tr>  
+
+					    <tr >
+						    <td >Stock </td>
+						    <td class="decal-g"><input type="text" ng-model="formData.stock" placeholder="Stock initial" style="width: 100px;"/>
+						    <span class="decal-g"> pièces</span></td>
+							<td >Poids </td>
+						    <td class="decal-g"><input type="text" ng-model="formData.poids" placeholder="Poids (frais port)" style="width: 100px;"/>
+						    <span class="decal-g"> grammes</span></td>				    
+						</tr>
+						<tr>
+						    <td style="text-align: right; padding-right: 0px;">Actif ? : 
+						    </td>
+						    <td class="decal-g">
+							    <input type="radio" ng-model="formData.etat" value=1 />oui
+							    <input type="radio" ng-model="formData.etat" value=0 />non
+							    
+							    <span ng-show="editData.etat==1" style="padding-left: 4px;font-style: italic;"> &#10132; actif</span>
+							    <span ng-show="editData.etat==0" style="padding-left: 4px;font-style: italic;"> &#10132; inactif </span>
+						    </td>				    
+					    </tr>  
+					</table>
+				</div><br/>
+				<div class="row control-group" >
+				    <div class="col-sm-6">
+				    	<center><img ng-src="{{formData.urlimg}}" style="width: 80px;" /></center>
+				    </div>
+				    <div class="col-sm-6">
+				    	<button type="submit" class="btn btn-default btn-lg" ng-click="addProduit()">Entrer</button>
+				    </div>
+				    <div ></div>
+				</div><div>&nbsp; </div>
+			</div>
+		</div>
+
+		<!-- listage des produits : -->
+		<div class="col-sm-5" >
+			<!-- Saisie des critères de sélection : -->
+			<table class="font-min decal-g">
+			<tr >
+				<th 				 >Voir </th>
+				<th 				 >Supp </th>
+				<th 				 >N°   </th>
+				<th class="th-center">Cat  </th>
+				<th class="th-center">Ref  </th>
+				<th class="th-center">Nom  </th>
+				<th class="th-center">Prix </th>
+				<th class="th-center">Stock</th>
+				<th>Actif</th>
+			</tr>
+			<tr>
+				<td colspan="2">
+					&nbsp;
+				</td>
+				<td></td>
+				<td>
+					<input type="text" ng-model="rech.cat" class="input-min input-20" title="Touche > ou < : sélectionne catégorie non définie" />
+				</td>
+				<td>
+					<input type="text" ng-model="rech.ref" class="input-min input-30" title="Touche > ou < : sélectionne référence non définie"/>
+				</td>
+				<td>
+					<input type="text" ng-model="rech.nom" placeholder="nom..." class="input-min" />
+				</td>
+				<td>
+					<table>
+						<tr>
+							<td><button type="button" ng-model="rech.comp1prix"  ng-click="rech.compprix='>'" class="btn-comp comp1" > > </button></td>
+							<td rowspan="3">
+								<div class="rescomp"><input type="text" ng-model="rech.prix" class="input-min input-20"></div>
+							</td>
+						</tr>
+						<tr>
+							<td><button type="button" ng-model="rech.comp2prix" ng-click="rech.compprix='='" class="btn-comp comp2" > = </button></td>
+						</tr>
+						<tr>
+							<td><button type="button" ng-model="rech.comp3prix"  ng-click="rech.compprix='<'" class="btn-comp comp3" > < </button></td>
+						</tr>
+					</table>
+				</td>
+				<td>
+					<table>
+						<tr>
+							<td><button type="button" ng-model="rech.comp1stock"  ng-click="rech.compstock='>'" class="btn-comp comp1" >></button></td>
+							<td rowspan="3">
+								<div class="rescomp"><input type="text" ng-model="rech.stock" class="input-min input-20"></div>
+							</td>
+						</tr>
+						<tr>
+							<td><button type="button" ng-model="rech.comp2stock" ng-click="rech.compstock='='" class="btn-comp comp2" >=</button></td>
+						</tr>
+						<tr>
+							<td><button type="button" ng-model="rech.comp3stock"  ng-click="rech.compstock='<'" class="btn-comp comp3" ><</button></td>
+						</tr>
+					</table>
+				</td>
+				<td>
+					<table >
+						<tr>
+							<td><button type="button" ng-model="rech.etat1"  ng-click="rech.etat=''" class="btn-comp btn-lftetat etat1"  >tous</button></td>
+
+						</tr>
+						<tr>
+							<td><button type="button" ng-model="rech.etat2" ng-click="rech.etat='1'" class="btn-comp btn-lftetat etat2" >actif</button></td>
+						</tr>
+						<tr>
+							<td><button type="button" ng-model="rech.etat3"  ng-click="rech.etat='0'" class="btn-comp btn-lftetat etat3"  >inactif</button></td>
+						</tr>
+					</table>				
+				</td>
+			</tr>
+			
+			<!-- liste des produits : -->
+			<tr ng-repeat="p in produits" ng-hide="
+					!(reg(rech.cat , p.categorie))
+					||
+					!(reg(rech.ref, p.reference))
+					||
+					!(reg(rech.nom, p.nom))
+					||
+					!(comp(rech.prix, p.prix, rech.compprix))
+					||
+					!(comp(rech.stock, p.stock, rech.compstock))
+					||
+					(rech.etat!=p.etat && rech.etat)
+					">
+					<td><a class="glyphicon glyphicon-eye-open btn-eye" title="voir"  href="#/modif/{{p._id}}"></a></td>
+					<td><button class="btn-mult btn-mult-position" title="supprimer" ng-click="supprProduit(p)">X</button></td>
+					<td> 
+						{{$index+1}}
+					</td>			
+					<td>
+						{{p.categorie| limitTo:3}}
+					</td>
+					<td>
+						{{p.reference}}
+					</td>
+					<td class="decal-g" >
+						{{p.nom}}
+					</td>
+					<td>
+						{{p.prix}}
+					</td>
+					<td>
+						{{p.stock}}
+					</td>	
+					<td>
+						{{p.etat}}
+					</td>				
+				
+			</tr>
+			</table>			
+		</div>
+	</div>
+  </form>
+</section>
+<section ng-show="option==2;">
+  <!-- section AFFICHAGE DES AVIS : ************************************************************-->
+	<div ng-show=" nbavis>0">
+	  <table style="text-align:center">
+	  <tr><th style="width:40px">img</th>
+		  <th style="width:50px">produit</th>
+		  <th style="width:20px">taille</th>
+		  <th style="width:15px">prix</th>
+		  <th style="width:30px">Note</th>
+		  <th style="width:100px">Avis</th>
+		  <th style="width:30px">Date</th>
+		  <th style="width:30px">User</th>
+		  <th style="width:15px">OK</th>
+		  <th style="width:15px">Suppr</th>
+	  </tr>
+	  <tr ng-repeat="a in avis">
+	  	 <td><img ng-src="{{a.urlimg}}" style="width: 40px;" /></td>
+	  	 <td>{{a.nom}}</td>
+	  	 <td>{{a.taille}}</td>
+	  	 <td>{{a.prix}}</td>
+	  	 <td>{{a.note}}</td>
+	  	 <td>{{a.textavi}}</td>
+	  	 <td>{{a.date|date:'dd-MM-yyyy'}}</td>
+	  	 <td>{{a.user}}</td>
+	  	 <td><button type="button" class="btn btn-ok" ng-click="valid($index)">OK</button></td>
+	  	 <td><button type="button" class="btn btn-mult" ng-click="suppr($index)">X</button></td>
+	  </tr>
+	  </table>
+  </div>
+</section> 
+ <section ng-show="option==4;" >
+   <!-- section AFFICHAGE DES CLIENTS et DROITS : ************************************************************-->
+ 	<div><form>
+ 		<table style="text-align:center">
+ 		<tr><th style="width:200px; text-align:center">email</th>
+	 		<th style="width:200px; text-align:center">prenom nom</th>
+	 		<th style="width:50px; text-align:center">droit</th>
+ 		</tr>
+ 		<tr ng-repeat="cl in clients">
+ 			<td>{{cl.email}}</td>
+ 			<td>{{cl.prenom+' '}}{{cl.nom}} </td>
+ 			<td><input type="number" min="0" max="2" step="1" ng-model="cl.valid" placeholder="" style="width:45px" ng-change="modifDroits(cl)" /></td>			
+ 		</tr>
+
+		</table>
+		</form>
+ </section>
+
+<div class="wedge80">&nbsp;</div>
+<div class="wedge80">&nbsp;</div>  
+<div class="wedge80">&nbsp;</div> 
+</div>

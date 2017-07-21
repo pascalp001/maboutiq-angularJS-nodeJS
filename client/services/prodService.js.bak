@@ -1,0 +1,48 @@
+(function(){
+angular.module("appPrd")
+       .factory("prodService",function($http){
+       		var urlBase = '/api/produit'; //= 'data/produits.json' ;
+		return {
+				getProduits: function(){
+					
+		    		return $http.get(urlBase)
+		    			.error(function(err){alert('là'+err);})
+				       .then(function(response){ 
+				              return response.data; });	
+				},
+		 	//	getProduits: function (id) {
+			//       return $http.get(urlBase + '/' + id)
+			//       	.then(function(response){ 
+			//	              return response.data; });			
+		 	//	},
+		 		
+		 		getProdByParam: function(valeur) {
+		 			return $http.get(urlBase)
+				       .then(function(response){ 
+				           	var arr = response.data; 
+				          	var len = arr.length;
+				          	for (var d=0 ; d<len ; d++)
+				          	{	if (arr[d]._id===valeur)
+				          		{	return arr[d];
+				          		//alert('ici'+len+'valeur='+valeur+'id='+arr[1]._id);
+				          		 }
+				          	};
+				        });	
+		 		},
+		 		getProdByResource: function($resource, param, valeur){
+		 			var id=0;
+		 			return $resource(urlBase + '/:' + param, {param: valeur}).get();
+		 		},
+		 		insertProduit:function (prod) {
+        			return $http.post(urlBase, prod);		
+		 		},
+    			updateProduit: function (prod) {
+			        return $http.put(urlBase + '/:' + prod._id, prod)
+    			},
+				deleteProduit: function (id) {
+    			    return $http.delete(urlBase + '/:' + prod._id);
+    			}
+
+			};
+		});
+}());

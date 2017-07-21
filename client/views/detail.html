@@ -1,0 +1,278 @@
+<div class="" ng-controller="DetailCtrl">
+<!-- Indication "vous êtes connecté" : ***********************-->
+<!--<div ng-show="connect==true" class="bordure cadreConn3"  >Vous êtes connecté</div>-->
+<!-- Produits dans le panier : -->
+  <div ng-show="countPanier>0" class="bordure flottantTopRight50">Vous avez {{countPanier}} produit<span ng-show="countPanier>1">s</span> dans le panier
+    <a class="glyphicon glyphicon-eye-open btn-eye" title="voir le panier" href="#/panier/"></a>
+  </div>
+  <h1>Détails</h1>
+
+  <div class="col-xs-12" >  
+    <section id="" class="sectn" >
+      <div ng-init="detailData.Qte=1" >
+        <div class="row" >
+
+          <div class="col-sm-5" >
+            <div class="row" >
+              <div class="col-xs-12" >
+                <img ng-src="{{detailData.urlimg}}" class="imgwidth3" />
+              </div>
+            </div>
+            <div class="row" >
+              <div class="col-xs-12" >
+                &nbsp;
+              </div>
+            </div>
+            <div class="row" >
+              <div class="col-xs-12" >
+                <a class="glyphicon glyphicon-backward btn-eye "  title="revenir à la boutique"  href="#/boutique"><button class="btn btn-primary btn-150 h4">Retour à la liste</button></a>
+              </div><input type="hidden" ng-model="detailData.Qte"></input>
+            </div>  
+            <div class="row" >
+              <div class="col-xs-12" >
+                &nbsp;
+              </div>
+            </div>        
+            <div class="row" >
+              <div class="col-xs-12" >              
+                <button ng-click="" class="btn btn-add btn-warning btn-170 h4" ng-show="detailData.stock>0 && QteAnt==1">Déjà dans panier</button>
+
+                <button ng-click="addPanier()" class="btn btn-add btn-success btn-170 h4" ng-show="detailData.stock>0 && QteAnt==0">Ajouter au panier</button>
+
+                <button ng-click="" class="btn btn-add btn-valid btn-170 h4" ng-show="detailData.stock>0 && QteAnt==2"><span class="glyphicon glyphicon-ok"></span>Ajouté</button>
+
+                <button ng-click="" class="btn btn-add btn-warning btn-170" ng-show="detailData.stock==0">En rupture</button>
+              </div>  
+            </div> 
+            <div class="row" >
+              <div class="col-xs-12" >          
+                <a class="glyphicon glyphicon-eye-open btn-eye" style="margin-top: 10px; " title="voir le panier" ng-show="detailData.stock>0 && QteAnt==2" href="#/panier">
+                <button ng-click="" class="btn btn-add btn-success btn-150 h4" >Voir le panier</button></a>
+              </div>  
+            </div>
+          </div>
+
+        	<div class="col-sm-7" >
+        	  <div class="row" >
+            	<h2 class="col-xs-6 panel-heading"> {{detailData.nom}}</h2>
+            	<h4 class="col-xs-3 decal-VV"> {{detailData.taille}}</h4>
+            	<h4 class="col-xs-3" style="border: 1px solid #333; border-radius: 5px;" > Catégorie : <span class="h5">{{detailData.categorie}}</span></h4>
+            </div>
+            <div class="row" >         
+            	<p class="col-xs-12 h4"> {{detailData.descCourt}}</p>
+            </div>
+            <div class="row" >
+              <p class="col-xs-12 h4"> {{detailData.descLong}}</p>
+        	  </div>  	  
+        	  <div class="row" >
+              <div class="col-xs-7 "><h3 style="height:20px; ">prix :  {{detailData.prix}} €</h3> 
+              </div>           
+            	<div class="col-xs-5"> 
+                <div ng-if="detailData.stock>5" ><h4 >{{detailData.stock+' '}}en stock</h4></div>
+                <div ng-if="detailData.stock>0 && detailData.stock<6" ><h4 style="height:20px; padding-top:14px">Plus que {{' '+detailData.stock+' '}}en stock</h4></div>
+                <div ng-if="detailData.stock==0" >&nbsp;</div>  
+              </div> 
+        	  </div><br/><br/> 
+            <div class="row" ng-show="nbAvis==0">  
+              <div class="col-xs-offset-2 col-xs-2" > 
+                0 avis  
+              </div>            
+            </div>          
+            <div class="row" ng-show="nbAvis>0">
+              <div class="col-xs-4"  > 
+                <div class="row" >
+                  <div class="col-xs-6 h4" >
+                    {{nbAvis}} avis 
+                  </div>
+                  <div class="col-xs-6 decal-d h4" > 
+                    Note de :
+                  </div>
+                </div>
+              </div>
+              <div class=" col-xs-4" >            
+                <div class="row decal-B"  >
+                  <ul >
+                    <li  ng-repeat="rate in rates" class="c-rating col-xs-2 "  > 
+                      <span   class="c-rating__item"  ng-class="{ 'is-active':prodRating>=rate, 'half-rating':prodRating>=rate-0.5 && prodRating<rate}"></span>
+                    </li>
+                  </ul>              
+                </div>
+              </div>
+              <div class=" col-xs-2 decal-B" >
+                <h4 >{{' '+prodRating+' '}}/5</h4>              
+              </div>
+            </div>
+            <br/><br/> 
+
+
+            <div class="row" ng-init="addAvi=false"><input type="hidden" ng-model="connect" />
+              <button type="button" class="col-md-offset-2 col-xs-6" ng-show="connect==true" ng-click="addAvi=true">
+                <span ng-show="nbAvis==0" class="h4">Soyez le premier à donner votre avis sur ce produit</span>
+                <span ng-show="nbAvis>0" class="h4">Donnez votre avis sur ce produit</span></button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div ng-show="addAvi==true"><hr class="hrb"/>
+        <div class="row" >             
+          <h4 class="col-xs-offset-1 col-xs-2">Note du produit :</h4>
+          <h4  class="col-xs-offset-1 col-xs-7" >Votre avis sur le produit :</h4>
+        </div>
+        <div class="row" >             
+          <div  class="col-xs-2">
+            <div class="row"  > <input type="hidden" ng-model="currentRating" />
+              <ul style="min-width:300px;" ng-click="toggle= !toggle">
+                <li  class="c-rating col-xs-1"  > 
+                  <span  ng-mouseover="currentRating = 0;"  class="c-rating__0" ></span>
+                </li>
+                <li  ng-repeat="rate in rates" class="c-rating col-xs-1 "  > 
+                  <span  ng-mouseover="mouseover(toggle,rate)"  class="c-rating__item"  ng-class="{'is-active':currentRating>=rate}"></span>
+                </li>
+                <h4 class="col-xs-3">{{' '+currentRating+' '}}/5</h4>
+              </ul>
+              
+            </div>
+          </div><textarea  ng-model="aviPlus" class="col-xs-offset-1 col-xs-7" /><button type="button" class="btn btn-grosplus col-xs-offset-1 col-xs-1" ng-click="envoiAvi()" >+</button>
+          </div>
+        </div>
+        <div ng-show="nbAvis>0"><hr class="hrb"/>
+          <div class="row">
+            <div class="col-xs-2 bordure h4">L'avis de </div>
+            <div class="col-xs-2 bordure h4">note </div>
+            <div class="col-xs-8 bordure h4">Commentaire </div>
+          </div>
+          <div class="row" ng-repeat="a in detailData.avis">
+            
+            <div class="col-xs-2 bordure h5">{{a.user.slice(0,a.user.indexOf("@",1))}} 
+            </div>
+            <div class="col-xs-2 bordure ">
+              <div class="row decal-l">           
+                <li  ng-repeat="rate in rates" class="c-rating col-xs-2 "  > 
+                  <span   class="c-rating__mitem "  ng-class="{ 'is-active':a.note>=rate, 'half-rating':a.note>=rate-0.5 && a.note<rate}"></span>              
+                </li> 
+              </div>              
+            </div>
+            <div class="col-xs-8 bordure h5">{{a.textavi}} 
+            </div>
+            
+          </div>
+         </div> 
+      </div>  
+    
+    </section> 
+
+  </div>
+
+</div>
+
+  <p> .</p>
+</div>
+
+<!-- s'inscrire | se connecter / se déconnecter : *************************************************** -->
+<input type="hidden" ng-model="connect" />
+<div class="showConnexion"  ng-init="showConnexion=false" ng-show="connect==false" ng-mouseover="statutconnexion()">
+  <div class="bordure cadreConn" >
+    <button type="button" class="btn-darkblue connecter"  ng-click="showConnexion=true;">S'inscrire</button>
+  </div>
+  <div class="bordure cadreConn"  >
+    <button type="button" class="btn-darkblue connecter"  ng-click="showConnexion=true;">Se connecter</button>
+  </div>
+</div>
+<div  class="showConnexion"  ng-show="connect==true" ng-mouseover="statutconnexion()" >
+  <div class="bordure cadreConn2"  >
+    <button type="button" class="btn-darkblue connecter"  ng-click="deconnexion()">Se déconnecter</button>
+  </div>
+</div>
+
+<!-- Boîte dialogue vers connexion : ****************************************************-->
+  <div ng-show="showConnexion==true">
+        <div class="layer_cart_overlay" ></div>
+        <div class="layer_cart" >
+          <div class="layer_cart_product">
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 bordure" >
+              <div  >
+                <h3 class="connexion">PAS ENCORE MEMBRE, INSCRIVEZ-VOUS</h3>
+              </div>  
+
+              <form>
+              <div class="row"><div class="wedge30">&nbsp;</div>
+                <div class="col-xs-12 col-sm-12">
+                  <center>
+                    <input type="text" class="inputConn" placeholder="Adresse email" ng-model="usr"  />
+                  </center>
+                </div>
+              </div><div style="height:80px; color:red; font-weight:600; padding:10px;"> &nbsp; {{msg}}</div>
+
+              <div class="row">    
+                <div class="col-xs-12 col-sm-12">
+                  <center>
+                    
+                    <a  href="#/inscription/0"  ng-show="testc==true" ng-click="" style="color:#0d0"><button type="button" class="seConnect" ng-click="inscription();  " title="Vers le module d'inscription" >S'inscrire</button></a>
+                    <button type="button" ng-show="testc==false" class="seConnect" ng-click="inscription(); " title="Saisir une adresse mail" >S'inscrire</button>
+                    
+                  </center>
+                </div>
+              </div><div style="height:40px">&nbsp;</div>
+              </form>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 bordure" >
+              <div  >
+                <h3 class="connexion">DÉJÀ CLIENT OU MEMBRE, IDENTIFIEZ-VOUS</h3>
+              </div>       
+              <div>
+
+                <form>
+                <div class="row">
+                  <div class="col-xs-12 col-sm-12">
+                    <center>
+                      <input type="text" class="inputConn" placeholder="Adresse email" ng-model="userMail" required />
+                    </center>
+                  </div>
+                </div><br/>
+
+                <div class="row">    
+                  <div class="col-xs-12 col-sm-12">
+                    <center>
+                      <input type="password" class="inputConn" placeholder="Mot de passe" ng-model="mp"  />
+                    </center>
+                  </div>
+                </div>
+                 {{msg_c}}
+                <br/>
+
+                <div class="row">    
+                  <div class="col-xs-12 col-sm-12">
+                    <center>
+                      <button type="button" class="seConnect" ng-click="connexion(); " title="Entrez une adresse e-mail"  >Se connecter</button>
+                    </center>
+                  </div>
+                </div> <br/>
+
+                </form>
+                 
+                 
+                <div class="row">               
+                  <div class="col-xs-12 col-sm-12">
+                    <center>
+                      <a  class="mdpOublie" style="" title="Option non fonctionnelle, désolé !" >Mot de passe oublié ?</a>
+                    </center>
+                  </div>
+                </div>
+
+              </div>
+            </div> 
+              <a href="" class="closePopin"  >
+                <i class=" icon-close-circle-outline icon-3x"  ><span class="glyphicon glyphicon-remove-circle" ng-click="showConnexion=false;" ></span></i>
+              </a>
+          </div>                       
+
+          </div>
+        </div >
+      </div >
+        <!-- fin boîte dialogue vers connexion / inscription -->
+
+

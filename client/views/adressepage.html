@@ -1,0 +1,161 @@
+<div class="" ng-controller="PanierCtrl">
+  <h1>Récapitulatif du panier de commande</h1>
+  <section>
+    <div>
+      <ul id="order_step" class="step clearfix">
+        <li class="step_current first">
+          <span><em>01.</em>Récapitulatif</span>
+        </li>
+        <li class="step_current second">
+          <span><em>02.</em>Connexion</span>
+        </li>
+        <li class="step_current third">
+          <span><em>03.</em>Adresse</span>
+        </li>
+        <li class="step_todo four">
+          <span><em>04.</em>Livraison</span>
+        </li>
+        <li id="step_end" class="step_todo last">
+          <span><em>05.</em>Paiement</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+  <section id="" class="sectn bordure" >
+
+    <legend class="legend">Bon de commande : </legend>
+    <div class="row " >
+      <div class="col-md-6 bordure" >
+        <div class="row " >
+          <div class="col-md-12 " >
+            Adresse de facturation :
+          </div>
+          <div class="row " >
+            <div class="col-md-6 " >
+              {{prenom}}
+            </div> 
+            <div class="col-md-6 " >
+              {{nom}}
+            </div>        
+          </div>
+          <div class="row " >
+            <div class="col-md-6 " >
+              {{adresse1}}
+            </div>       
+          </div>
+          <div class="row " >
+            <div class="col-md-6 " >
+              {{adresse2}}
+            </div>       
+          </div>
+          <div class="row " >
+            <div class="col-md-6 " >
+              {{cp}}
+            </div> 
+            <div class="col-md-6 " >
+              {{ville}}
+            </div>        
+          </div>
+          <div class="row " >
+            <div class="col-md-6 " >
+              {{pays}}
+            </div>       
+          </div> 
+          <div class="row " >
+            <div class="col-md-12 " >
+              Contacts :
+            </div>
+            <div class="row " >
+              <div class="col-md-12 " >
+                Tel :{{tel}}
+              </div>     
+            </div>
+            <div class="row " >
+              <div class="col-md-12 " >
+                Email :{{email}}
+              </div>     
+            </div>         
+          </div>    
+        </div>
+      </div>
+    </div>
+<!-- Fin zone adresse -->
+
+<!-- Articles de la commande : -->
+    <div class="row " >
+      <div class="col-md-7 bordure" >
+      Articles :
+      </div>
+      <div class="col-md-2 bordure" >
+      Quantité :
+      </div>
+      <div class="col-md-1 bordure" >
+      Prix :
+      </div> 
+      <div class="col-md-1 bordure" >
+      Total :
+      </div> 
+      <div class="col-md-1 bordure" >
+      Suppr.
+      </div> 
+    </div> 
+
+    <div ng-repeat="p in paniers" class="row bordure" >
+      <div class="col-md-1 bordverti" style="background-color:#111" >
+        <img ng-src="{{p.urlimg}}" style="height:50px; margin-left:-10px;" />
+      </div>
+      <div class="col-md-4 bordverti" >
+          <h5 > {{p.nom}}</h5>
+      </div>
+      <div class="col-md-2 bordverti" >        
+          <h5 >{{p.taille}}</h5>
+      </div>
+      <div class="col-md-2 bordverti" >      
+        <input type="number" min="0" class="input-70 decal-v"  ng-model="p.Qte" ng-change="actualise" />
+      </div>
+      <div class="col-md-1 bordverti">
+        <h5>{{p.prix}} €</h5> 
+      </div>           
+      <div class="col-md-1 bordverti"> 
+        <h5>{{Math.round(p.Qte*p.prix*100)/100}} €</h5> 
+      </div> 
+      <div class="col-md-1 bordverti" >
+        <button type="button" class="btn-plus btn-plus-pos2"  title="Supprimer l'article" ng-click="deleteProd($index)">  X
+        </button>
+      </div>
+      <hr/> 
+    </div>
+
+<div class="row bordure" >
+      <div class="col-md-5 " >
+        <h4>Total :</h4>
+      </div>
+      <div class="col-md-3" > &nbsp; </div>
+      <div class="col-md-2" > &nbsp; </div> 
+      <div class="col-md-2 bordverti" >
+        <h4>{{getTotal()+' '}}€</h4>
+      </div>  
+    </div>
+    <div class="row bordure" >
+      <div class="col-md-offset-8 col-md-4 " >
+      dont TVA : {{Math.round(getTotal()/1.20*0.2*100)/100+' '}} € et HT : {{Math.round(getTotal()/1.20*100)/100+' '}} €
+      </div>  
+    </div>  
+    <div>&nbsp;</div>
+    <p style="color:#335">Vos frais de ports seront calculés à l'étape suivante, au moment du choix du mode de livraison.</p>
+    <p style="color:red">Les frais de port sont offerts en France Métropolitaine à partir de 30€ d'achat</p>
+    <div class="row"  >
+      <center>
+      <a class="glyphicon glyphicon-plus btn-eye" title="valider et revenir à la boutique"  href="#/boutique"><button type="button" class="btn btn-info "  ng-click="modifPanier()" >Continuer mes achats</button></a>
+
+      <a class="glyphicon glyphicon-euro btn-eye" title="passer commande"  href="#/connexion">
+      <button type="button" class="btn btn-success "  ng-click="modifPanier()" >Continuer la commande</button></a>
+     
+       <a class="glyphicon glyphicon-remove btn-mult2" title="remise à zéro et retour à la boutique"  href="#/boutique">
+        <button type="button" class="btn btn-warning "  ng-click="deletePanier()" >Tout supprimer</button></a>
+      </center>
+    </div>
+    
+  </section>  
+</div>
+

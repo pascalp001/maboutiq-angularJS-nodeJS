@@ -1,0 +1,319 @@
+<div class="" ng-controller="BoutiqueCtrl">
+
+  <!-- Indication "vous êtes connecté" : ***********************-->
+  <!--<div ng-show="connect==true" class="bordure cadreConn3"  >Vous êtes connecté</div>-->
+
+  <!-- Indication nombre de produits dans le panier : ***********-->
+  <div ng-show="countPanier>0" class="bordure flottantTopRight50"><span class="glyphicon glyphicon-shopping-cart" style="color:#ddd;font-size:10px;"></span><span>
+    Vous avez {{countPanier}} produit</span><span ng-show="countPanier>1">s</span> dans le panier
+    <a class="glyphicon glyphicon-eye-open btn-eye" title="voir le panier" href="#/panier/"></a>
+  </div>
+<!-- Menu latéral navbar-toggle collapsed-->
+  <button type="button" class="btn-darkblue flottantTopLeft55" ng-click="montre=!montre"><table><tr class="bordoff"><td><span class="icon-3bar"></span></td></tr><tr class="bordoff"><td><span class="icon-3bar"></span></td></tr><tr class="bordoff"><td><span class="icon-3bar"></span></td></tr></table></button>
+  <div  class="menuLateral liste-darkblue" ng-class="montre==true?'ouvre':'ferme'">
+    <center>Tri par Catégorie :</center>
+    <ul class="ulnav">
+      <li class="laterpropos" role="presentation"><input type="checkbox" name="catego[]" ng-model="categ.all" value="true" checked ng-click="uncheckAll()" />Tous</li>
+      <li class="laterpropos" ng-repeat="c in categories | orderBy: categories.libelle" role="presentation"><input type="checkbox"  ng-model="c.selected" ng-click="checkedList(c.selected, c.libelle);categ.all=false; " />{{c.libelle}}</li>
+    </ul>
+    <div class="wedge20">&nbsp;</div>
+  </div>
+  <!-- Tri et pagination : **************************************-->
+  <div class="row" >
+    <div class="col-sm-offset-2 col-sm-4" >
+      <label class="" for="input-sort">Trier par
+      <select  id="input-sort" class="front-select"  style="max-width:200px;"
+        ng-options="option.name for option in listtri.opttri track by option.id"
+        ng-model="listtri.choixtri" ng-change="valtri=' -'+listtri.choixtri.valtri;reverstri=listtri.choixtri.reverse" style="">
+        </select></label>
+    </div>
+    <div class="col-sm-3" >
+      <label class="control-label" for="input-limit">Afficher
+        <select id="input-limit" class="front-select"  
+        ng-options="option.name for option in listlimitpage.optionsPossibles track by option.id"
+        ng-model="listlimitpage.limitpage" ng-change="pageinf=0;pagesup=listlimitpage.limitpage.name" style="">
+        </select>par page limitsup= {{pagesup}}</label>
+    </div>
+    <div class="col-sm-2"  >
+      <div class="row" >
+       <div class="col-md-12" >
+         Pages <button type="button" class="btn-mins" ng-model="prevpage" ng-click="pageinf=Math.max(0,pageinf-listlimitpage.limitpage.name); pagesup=pageinf+listlimitpage.limitpage.name;"><span ng-style={color:'black'} ng-show="pageinf>0">&laquo;</span> 
+         <span ng-style={color:'#aaa'} ng-show="pageinf==0">&laquo;</span></button>
+
+         <button type="button" class="btn-mins" ng-model="page1" ng-click="pageinf=0*listlimitpage.limitpage.name; pagesup=1*listlimitpage.limitpage.name"> 1</button>
+
+         <button type="button" class="btn-mins" ng-model="page2" ng-show="2<Math.ceil(len/listlimitpage.limitpage.name)+1" ng-click="pageinf=1*listlimitpage.limitpage.name; pagesup=2*listlimitpage.limitpage.name;"> 2</button>
+
+         <button type="button" class="btn-mins" ng-model="page3" ng-show="3<Math.ceil(len/listlimitpage.limitpage.name)+1" ng-click="pageinf=2*listlimitpage.limitpage.name; pagesup=3*listlimitpage.limitpage.name;"> 3</button>
+         <button type="button" class="btn-mins" ng-model="nextpage" ng-click="pagesup=Math.min(pagesup+listlimitpage.limitpage.name, Math.ceil(len/listlimitpage.limitpage.name)*listlimitpage.limitpage.name); pageinf=pagesup-listlimitpage.limitpage.name;"> <span ng-style={color:'black'} ng-show="pagesup<Math.ceil(len/listlimitpage.limitpage.name)*listlimitpage.limitpage.name">&raquo;</span> 
+         <span ng-style={color:'#aaa'} ng-show="pagesup>=Math.ceil(len/listlimitpage.limitpage.name)*listlimitpage.limitpage.name">&raquo;</span></button>
+         - {{Math.ceil(len/listlimitpage.limitpage.name)}} 
+       </div>
+      </div>
+    </div>
+  </div><!--<span style="font-size:8px">Test: 2+2={{2+2}}</span>-->
+  <div class="row" >
+    <div class="col-sm-5"  >
+      <h1>La Boutique<span style="font-size:12px; " ><em class="rouge">&nbsp;FACTICE</em></span></h1>
+    </div>
+  </div>
+
+<!-- Affichage des produits : *********************************-->
+  <div class="row" >
+    <div ng-repeat="p in produits | orderBy:listtri.choixtri.valtri: reverse=listtri.choixtri.reverse" class="col-md-6"  ng-hide="(categ.all==false) &&
+          !( selectionCateg.indexOf(p.categorie)!=-1) || !($index>=pageinf && $index<pagesup)
+          ">
+
+      <div ng-init="p.showPanier=false; p.Qte=1" >
+
+      <section class="sectn" id="" style="">
+        <div class="row" style="min-height: 285px;" >
+          <div class=" col-xs-12 col-sm-5" style="min-width:185px;">
+
+            <div class="row" >
+              <div class="col-md-12">
+              <a  title="voir"  href="#/detail/{{p._id}}">
+              <img ng-src="{{p.urlimg}}" title="Ref : {{p._id}}" style="height:110px;" />
+              </a></div><br/>
+            </div>
+            <div class="row" >
+              <div class="col-md-12">
+                <div>&nbsp;</div>
+              </div>
+            </div>
+            <div class="row"  >
+              <div class="col-md-12">
+                <a class="glyphicon glyphicon-eye-open btn-eye" title="voir"  href="#/detail/{{p._id}}"><button class="btn btn-success" ng-click="setPage()" >VOIR</button></a>           
+              </div> 
+            </div> 
+            <div class="row" >
+              <div class="col-md-12"> 
+                <div ng-if="p.Stock>0 && p.Stock<6" >
+                  <h6>Plus que  {{' '+p.stock+' '}}en stock</h6>
+                </div>
+                <div ng-if="p.stock>5" >
+                  <h6>{{p.stock+' '}}en stock</h6>
+                </div>  
+                <div ng-if="p.stock==0" >
+                  <div>&nbsp;</div>
+                </div>             
+              </div>
+            </div>
+            <div class="row" style="max-height: 20px;">
+              <div class="col-md-12"><h3>prix :  {{p.prix}} €</h3> 
+              </div> 
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-12" >  
+                <span class="glyphicon glyphicon-shopping-cart btn-eye"><button  class="btn btn-add btn-success btn-str" ng-show="p.stock>0" ng-click="p.showPanier=true; djaPanier($index,p._id);" >Ajouter au panier</button> </span>
+                <button ng-click="" class="btn btn-add btn-warning" ng-show="p.stock==0">En rupture</button>
+              </div>  
+            </div>
+          </div>
+        	<div class="col-xs-12 col-sm-7 " >
+        	  <div class="row" >
+              <h6 class="col-md-6"> Catégorie : {{p.categorie}}</h6>
+              <h6 class="col-md-6">Taille : {{p.taille}}</h6>
+            </div>
+            <div class="row" >          
+            	<h3 class="col-md-12 panel-heading"> {{p.nom}}  </h3>
+            </div>
+            <div class="row" >
+            	<p class="col-md-12"> {{p.descCourt}}</p>
+        	  </div>  	  
+          </div>
+        </div><hr/ style="margin-top:-15px;">
+       </section>  
+      </div>
+
+  <!--BOÎTE DE DIALOGUE showPanier "Ajouter au panier" : *********-->
+      <div ng-show="p.showPanier==true">
+        <div class="layer_cart_overlay" ></div>
+        <div class="layer_cart" >
+          <div class="layer_cart_product">
+          <div style="padding:15px" >
+            <span class="fnt_g cross" title="Fermer la fenêtre"></span> 
+            <div ng-show="QteAnt==false" >
+              <h3 style="margin-left:15px; color:#393;">Vous venez d'ajouter à votre panier </h3><hr class="hrb"/>
+            </div>
+            <div ng-show="QteAnt==true" >
+              <h3 style="margin-left:15px; color:#933">Cet article est déjà dans votre panier</h3><hr class="hrb"/>
+            </div>        
+            <div>
+              <div class="row">
+                <div class="col-xs-12 col-sm-4">
+                  <center>
+                    <img src="{{p.urlimg}}" title="{{p.nom}}" alt="image de l'article choisi" style="height:110px;" />
+                  </center>
+                </div>
+                <div class="col-xs-12 col-sm-8">
+                  <center>
+                  <h3>{{p.nom}}</h3>
+                  <hr style="border:#000" />
+                  <h4>Quantité : {{p.Qte}}</h4>
+                  <h4>Prix : {{p.prix+' '}}€</h4>
+                  </center>
+                </div>
+              </div>
+            </div>
+              <a href="" class="closePopin"  >
+              <i class=" icon-close-circle-outline icon-3x"  ><span class="glyphicon glyphicon-remove-circle" ng-click="p.showPanier=false" ></span></i>
+              </a>
+            <hr class="hrb"/>
+            <div class="wedge20">&nbsp;</div>
+            <div style="padding:15px;">
+            <div class="row">
+              <div class="col-xs-12 col-sm-offset-1 col-sm-5" ng-show="QteAnt==true">
+                <div class="row"><center>
+<a class="glyphicon glyphicon-backward btn-eye"  title="annuler et revenir à la boutique" style="border-radius: 5px;" href="#/boutique"><button type="button" class="btn btn-greyish "  ng-click="p.showPanier=false" >Retour vers boutique &nbsp;<span class="glyphicon glyphicon-circle-arrow-left btn-eye" ></span></button></a></center>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-4" ng-show="QteAnt==false">
+                <div class="row"><center>
+<a class="glyphicon glyphicon-backward btn-eye"  title="annuler et revenir à la boutique" style="border-radius: 5px;" href="#/boutique"><button type="button" class="btn btn-greyish "  ng-click="p.showPanier=false" >Annuler et retour &nbsp;<span class="glyphicon glyphicon-remove btn-mult2" ></span></button></a></center>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-4" ng-show="QteAnt==false">          
+                <div class="row"><center>
+<a class="glyphicon glyphicon-backward btn-eye"  title="envoyer au panier et revenir à la boutique" style="border-radius: 5px;" href="#/boutique" ><button type="button" class="btn btn-greyish " ng-click="addPanier(getIndex(p)); p.showPanier=false; "  >Continuer achats &nbsp;<span class="glyphicon glyphicon-plus btn-eye" ></span></button></a></center>
+                </div>
+              </div>
+              <div  ng-class="{'col-sm-offset-1 col-sm-5': QteAnt==true, 'col-xs-12 col-sm-4': QteAnt==false} " class=""><!--     -->
+                <div class="row"><center>
+<a class="glyphicon glyphicon-forward btn-eye" title="envoyer au panier et voir le panier" style="border-radius: 5px;" href="#/panier"><button type="button" class="btn btn-greyish "  ng-click="addPanier(getIndex(p));setPage();" >Voir mon panier &nbsp;<span class="glyphicon glyphicon-euro btn-eye"  ></span></button></a></center>
+                </div> 
+                <div class="wedge10">&nbsp;</div> 
+              </div>      
+            </div >
+            </div>
+          </div>
+        </div >
+        </div>
+      </div >
+  <!-- fin boîte dialogue vers panier ************************ -->
+    </div>
+<!-- fin de la boucle ng-repeat ****************************** -->
+  </div>
+<!-- Rappel pagination en bas de page -->
+  <div class="col-sm-offset-10 col-sm-2" >
+    <div class="row" >
+      <div class="col-md-12" >
+         Pages <button type="button" class="btn-mins" ng-model="prevpage" ng-click="pageinf=Math.max(0,pageinf-listlimitpage.limitpage.name); pagesup=pageinf+listlimitpage.limitpage.name;"><span ng-style={color:'black'} ng-show="pageinf>0">&laquo;</span> 
+         <span ng-style={color:'#aaa'} ng-show="pageinf==0">&laquo;</span></button>
+
+         <button type="button" class="btn-mins" ng-model="page1" ng-click="pageinf=0*listlimitpage.limitpage.name; pagesup=1*listlimitpage.limitpage.name"> 1</button>
+
+         <button type="button" class="btn-mins" ng-model="page2" ng-show="2<Math.ceil(len/listlimitpage.limitpage.name)+1" ng-click="pageinf=1*listlimitpage.limitpage.name; pagesup=2*listlimitpage.limitpage.name;"> 2</button>
+
+         <button type="button" class="btn-mins" ng-model="page3" ng-show="3<Math.ceil(len/listlimitpage.limitpage.name)+1" ng-click="pageinf=2*listlimitpage.limitpage.name; pagesup=3*listlimitpage.limitpage.name;"> 3</button>
+         <button type="button" class="btn-mins" ng-model="nextpage" ng-click="pagesup=Math.min(pagesup+listlimitpage.limitpage.name, Math.ceil(len/listlimitpage.limitpage.name)*listlimitpage.limitpage.name); pageinf=pagesup-listlimitpage.limitpage.name;"> <span ng-style={color:'black'} ng-show="pagesup<Math.ceil(len/listlimitpage.limitpage.name)*listlimitpage.limitpage.name">&raquo;</span> 
+         <span ng-style={color:'#aaa'} ng-show="pagesup>=Math.ceil(len/listlimitpage.limitpage.name)*listlimitpage.limitpage.name">&raquo;</span></button>
+         - {{Math.ceil(len/listlimitpage.limitpage.name)}} 
+      </div>
+    </div>
+  </div>
+ 
+<!-- EN HAUT A DROITE : s'inscrire | se connecter / se déconnecter : *************************************************** -->
+  <input type="hidden" ng-model="connect" />
+  <div class="showConnexion"  ng-init="showConnexion=false" ng-show="connect==false" ng-mouseover="statutconnexion()">
+    <div class="bordure cadreConn" >
+      <button type="button" class="btn-darkblue connecter"  ng-click="showConnexion=true;">S'inscrire</button>
+    </div>
+    <div class="bordure cadreConn"  >
+      <button type="button" class="btn-darkblue connecter"  ng-click="showConnexion=true;">Se connecter</button>
+    </div>
+  </div>
+  <div  class="showConnexion"  ng-show="connect==true" ng-mouseover="statutconnexion()" >
+    <div class="bordure cadreConn2"  >
+      <button type="button" class="btn-darkblue connecter"  ng-click="deconnexion()">Se déconnecter</button>
+    </div>
+  </div>
+
+<!-- BOÎTE DE DIALOGUE vers connexion / inscription : ****************************************************-->
+  <div ng-show="showConnexion==true">
+    <div class="layer_cart_overlay" ></div>
+    <div class="layer_cart" >
+      <div class="layer_cart_product">
+        <div class="row">
+
+      <!-- Vers inscription : -->      
+          <div class="col-xs-12 col-sm-6 bordure" >
+            <div  >
+              <h3 class="connexion">PAS ENCORE MEMBRE, INSCRIVEZ-VOUS</h3>
+            </div>  
+            <form>
+            <div class="row">
+              <div class="wedge30">&nbsp;</div>
+              <div class="col-xs-12 col-sm-12">
+                <center>
+                  <input type="text" class="inputConn" placeholder="Adresse email" ng-model="usr"  />
+                </center>
+              </div>
+            </div>
+            <div style="height:80px; color:red; font-weight:600; padding:10px;"> &nbsp; {{msg}}
+            </div>
+            <div class="row">    
+              <div class="col-xs-12 col-sm-12">
+                <center>  
+
+                  <a  href="#/inscription/0"  ng-show="testc==true" ng-click="" style="color:#0d0"><button type="button" class="seConnect" ng-click="inscription();  " title="Vers le module d'inscription" >S'inscrire</button></a>
+
+                  <button type="button" ng-show="testc==false" class="seConnect" ng-click="inscription(); " title="Saisir une adresse mail" >S'inscrire</button>                  
+                </center>
+              </div>
+            </div><div style="height:40px">&nbsp;</div>
+            </form>
+          </div>
+          <!-- Vers connexion : -->
+          <div class="col-xs-12 col-sm-6 bordure" >
+            <div  >
+              <h3 class="connexion">DÉJÀ CLIENT OU MEMBRE, IDENTIFIEZ-VOUS</h3>
+            </div>       
+            <div>
+              <form>
+              <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                  <center>
+                    <input type="text" class="inputConn" placeholder="Adresse email" ng-model="userMail" required />
+                  </center>
+                </div>
+              </div><br/>
+
+              <div class="row">    
+                <div class="col-xs-12 col-sm-12">
+                  <center>
+                    <input type="password" class="inputConn" placeholder="Mot de passe" ng-model="mp"  />
+                  </center>
+                </div>
+              </div>
+               {{msg_c}}
+              <br/>
+
+              <div class="row">    
+                <div class="col-xs-12 col-sm-12">
+                  <center>
+                    <button type="button" class="seConnect" ng-click="connexion(); " title="Entrez une adresse e-mail"  >Se connecter</button>
+                  </center>
+                </div>
+              </div> <br/>
+              </form>             
+              <div class="row">               
+                <div class="col-xs-12 col-sm-12">
+                  <center>
+                    <a  class="mdpOublie" style="" title="Option non fonctionnelle, désolé !" >Mot de passe oublié ?</a>
+                  </center>
+                </div>
+              </div>
+
+            </div>
+          </div> 
+          <a href="" class="closePopin"  >
+            <i class=" icon-close-circle-outline icon-3x"  ><span class="glyphicon glyphicon-remove-circle" ng-click="showConnexion=false;" ></span></i>
+          </a>
+        </div>                       
+
+      </div>
+    </div >
+  </div >
+  <!-- fin boîte dialogue vers connexion / inscription -->
+</div>

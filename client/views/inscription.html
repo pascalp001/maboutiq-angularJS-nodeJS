@@ -1,0 +1,164 @@
+<div class="" ng-controller="InscripCtrl">
+      <section ng-show="ori==1">
+    <div>
+      <ul id="order_step" class="step clearfix">
+        <li class="step_current first">
+          <span><em>01.</em>Récapitulatif</span>
+        </li>
+        <li class="step_current second decal-G" >
+          <span  ><em >02.</em>Connexion</span>
+        </li>
+        <li class="step_todo third">
+          <span><em>03.</em>Adresse</span>
+        </li>
+        <li class="step_todo four">
+          <span><em>04.</em>Livraison</span>
+        </li>
+        <li id="step_end" class="step_todo last">
+          <span><em>05.</em>Paiement</span>
+        </li>
+      </ul>
+    </div>
+    <div class="wedge80">&nbsp;</div>
+  </section>
+
+  <div class="layer_cart_overlay" ng-show="ori==1"></div>   
+    <div class="inscrpt"  ng-class="maClasse" >
+      <div class="layer_cart_product">
+      
+        <form> 
+          <div class="row">
+              <div class="col-xs-12 col-sm-12 bordure" >
+                <br ng-show="ori==0"/>
+                <h3 class="connexion">FORMULAIRE D'INSCRIPTION</h3>
+                <br ng-show="ori==0"/>
+              </div>       
+          </div>
+          <div class="wedge5">&nbsp;</div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-offset-2 col-sm-2 decal-v">
+                <label for="titre">Titre*</label>
+            </div>             
+            <div class="col-xs-12  col-sm-5 ">
+              <table class="inputTitre"><tr >
+                <td>M :   </td>              
+                <td>
+                    <input type="radio" id="titre" class="" ng-model="titre" value="M"  />               
+                </td>
+                <td>Mme :</td>
+                <td>
+                    <input type="radio"  class="" ng-model="titre" value="Mme"  />   
+                </td>
+                <td>
+                    Non précisé :</td>
+                <td>
+                    <input type="radio" id="titre" class="" ng-model="titre" value="nonprec"  />  
+                </td>             
+              </tr></table>
+            </div> 
+          </div>          
+          <div class="row">
+            <div class="col-xs-12 col-sm-offset-2 col-sm-2 decal-v">
+                <label for="prenom" >Prenom*</label>
+            </div>
+            <div class="col-xs-12  col-sm-5">
+                <input type="text" id="prenom" class="inputConn" placeholder="Prenom" ng-model="prenom" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-offset-2 col-sm-2 decal-v">
+                <label for="nom">Nom*</label>
+            </div>
+            <div class="col-xs-12  col-sm-5">
+                <input type="text" id="nom" class="inputConn" placeholder="Nom" ng-model="nom"  />               
+            </div>
+          </div>
+          <div class="row"><input type="hidden" ng-model=usermail />
+            <div class="col-xs-12 col-sm-offset-2 col-sm-2 decal-v">
+              <label for="email">E-mail*</label>
+            </div>
+            <div class="col-xs-12  col-sm-5">
+                <div class="showMail" >{{usermail}} </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-offset-2 col-sm-2 decal-v">
+                <label for="mdp">Mot de passe*</label>
+            </div>
+            <div class="col-xs-12  col-sm-5">
+                <input type="password" id="mdp"  class="inputConn" placeholder="" ng-model="mp"  />               
+            </div>
+          </div>
+          <br/>
+
+          <div class="row">    
+            <div class="col-xs-12 col-sm-offset-2 col-sm-2">
+                <label for="datenaiss">Date de naissance</label>
+            </div>
+            <div class="col-xs-12  col-sm-5">
+              <div class="row"> 
+                <div class="col-xs-2  col-sm-offset-1 col-sm-2">
+                  <select   class="front-select"  style="max-width:50px;"
+                  ng-options="option.name for option in listjour.optjour track by option.id"
+                  ng-model="listjour.choixjour" ng-change="" >
+                  </select> 
+                </div>
+                <div class="col-xs-2  col-sm-2">
+                  <select   class="front-select"  style="max-width:50px;"
+                  ng-options="option.name for option in listmois.optmois track by option.id"
+                  ng-model="listmois.choixmois" ng-change="" ></select>
+                </div>
+                <div class="col-xs-3  col-sm-3">
+                  <select   class="front-select"  style="max-width:100px;"
+                  ng-options="option.name for option in listan.optan track by option.id"
+                  ng-model="listan.choixan" ng-change="" ></select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-offset-2 col-sm-2" style="font-size:0.7em;">
+                <label for="input-sortQ">Question en cas d'oubli du mot de passe</label>
+            </div> 
+            <div class="col-xs-12  col-sm-5" >
+              <select  id="input-sortQ" class="front-select"  style="min-width:350px;"
+                ng-options="option.name for option in listQuest.optionsQuest track by option.id"
+                ng-model="listQuest.question" ng-change="" style="">
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-offset-2 col-sm-2">
+                <label for="input-sortQ">La réponse :'</label>
+            </div> 
+            <div class="col-xs-12  col-sm-5" >
+              <input type="text" ng-model="reponse" />
+            </div>
+          </div>
+          <div class="wedge10">&nbsp;</div>
+          <div class="row">    
+            <div class="col-xs-12 col-sm-offset-4 col-sm-4">
+              <center>           
+                <a href="{{redirect}}" ><button type="button" class="seConnect" ng-click="inscription(); " title="Valider l'insription et se connecter"  >Valider et se connecter</button>  </a>         
+              </center>
+            </div>
+          </div> <br ng-show="ori==0"/>
+
+        </form>
+      <div class="wedge10">&nbsp;</div>
+      <div class="bordure">
+      <div class="wedge5">&nbsp;</div>                     
+        <div class="decal-g">
+          <a href="#/panier"  class="decal-l" ng-show="ori==1">
+            <button class="btn btn-greyish "  ><< Revenir au panier</button>
+          </a>
+          <a href="#/boutique"  class="decal-l" ng-show="ori==0">
+            <button class="btn btn-greyish "  ><< Retour sans inscription</button>
+          </a>
+        </div>
+      <div class="wedge5">&nbsp;</div> 
+      </div>
+    </div >
+  </div >
+
+</div>

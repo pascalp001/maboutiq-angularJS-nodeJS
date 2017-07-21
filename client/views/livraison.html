@@ -1,0 +1,273 @@
+<div class="" ng-controller="LivraisonCtrl">
+  <!-- ******** Flèches de progression : ******** -->
+  <section >
+    <div>
+      <ul id="order_step" class="step clearfix">
+        <li class="step_current first">
+          <span><em>01.</em>Récapitulatif</span>
+        </li>
+        <li class="step_current second decal-G" >
+          <span  ><em >02.</em>Connexion</span>
+        </li>
+        <li class="step_current third decal-G">
+          <span><em>03.</em>Adresse</span>
+        </li>
+        <li class="step_current four decal-G">
+          <span><em>04.</em>Livraison</span>
+        </li>
+        <li id="step_end" class="step_todo last">
+          <span><em>05.</em>Paiement</span>
+        </li>
+      </ul>
+    </div>
+    <div class="wedge80">&nbsp;</div>
+  </section>
+
+  <!-- ******** Boîte de dialogue : ************ -->
+  <div class="layer_cart_overlay" ></div>  
+    <div class="inscrpt inscrpt3"   >
+      <div class="layer_cart_product">
+
+       <form> 
+          <div class="row bordure">
+              <div class="col-xs-12 col-sm-12 " >
+
+                <h3 class="connexion">ADRESSE ET MODALITÉS DE LIVRAISON</h3>
+
+              </div>       
+          </div>
+          <div class="row bordure">
+              <div class="wedge5">&nbsp;</div> 
+              <div class="col-xs-1 col-sm-1 " >
+              <center>
+                <input type="checkbox" ng-model="adrliv" value=false />
+              </center>
+              </div>
+              <div class="col-xs-11 col-sm-11 " >              
+                <label>Adresse de livraison différente de l'adresse de facturation ? cocher, si oui</label>
+              </div>
+               <div class="wedge5">&nbsp;</div> 
+          </div>
+  <!-- Adresse de livraison différente de la facturation : ****************************** -->         
+          <div ng-show="adrliv==true">
+
+            <div class="row">
+              <div class="col-xs-12 col-sm-offset-2 col-sm-2 decal-v">
+                <label >Nom</label>
+              </div>
+              <div class="col-xs-12  col-sm-5">
+                
+                  <div class="row">
+                    <div class="col-xs-1  col-sm-1">              
+                    <input type="text" ng-model="titrel" value={{titrel}} />
+                    </div>
+                    <div class="col-xs-3  col-sm-3"> 
+                    <input type="text" ng-model="prenoml" value={{prenoml}} />
+                    </div>
+                    <div class="col-xs-4  col-sm-4"> 
+                    <input type="text" ng-model="noml" value={{noml}} />
+                    </div>
+                    <div class="col-xs-4  col-sm-4"> 
+                    </div>
+                  </div>
+                
+              </div>
+            </div>      
+            <div class="row">
+              <div class="col-xs-12 col-sm-offset-2 col-sm-2 decal-v">
+                  <label for="no" >N°</label>
+              </div>
+              <div class="col-xs-12  col-sm-5">
+                  <input type="text" id="no" class="inputConn" placeholder="n°" ng-model="nol" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-offset-2 col-sm-2 decal-v">
+                  <label for="rue">Rue*</label>
+              </div>
+              <div class="col-xs-12  col-sm-5">
+                  <input type="text" id="rue" class="inputConn" placeholder="ruel" ng-model="rue"  />               
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-offset-2 col-sm-2 decal-v">
+                  <label for="complt">Complt</label>
+              </div>
+              <div class="col-xs-12  col-sm-5">
+                  <input type="text" id="complt" class="inputConn" placeholder="Bâtiment, étage, ..." ng-model="compltl"  />               
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-offset-2 col-sm-2 decal-v">
+                  <label for="cp">Code postal*</label>
+              </div>
+              <div class="col-xs-12  col-sm-5">
+                  <input type="text" id="cp"  class="inputConn" placeholder="00000" ng-model="cpl"  />               
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-offset-2 col-sm-2 decal-v">
+                  <label for="ville">Ville*</label>
+              </div>
+              <div class="col-xs-12  col-sm-5">
+                  <input type="text" id="ville"  class="inputConn" placeholder="ville" ng-model="villel"  />               
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-offset-2 col-sm-2 decal-v">
+                  <label for="pays">Pays*</label>
+              </div>
+              <div class="col-xs-12  col-sm-5">
+                  <input type="text" id="pays"  class="inputConn" placeholder="pays" ng-model="paysl" />               
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-offset-2 col-sm-2 decal-v">
+                  <label for="tel">Tel*</label>
+              </div>
+              <div class="col-xs-12  col-sm-5">
+                  <input type="text" id="tel"  class="inputConn" placeholder="mobile ou fixe" ng-model="tell" />               
+              </div>
+            </div>
+          
+          <br/>
+          <div class="wedge10">&nbsp;</div>
+          <div class="row">    
+            <div class="col-xs-12 col-sm-offset-4 col-sm-4">
+              <center>           
+                <button type="button" class="seConnect" ng-click="inscriAdresse(); " title="Valider l'adresse "  >Valider l'adresse</button>           
+              </center>
+            </div>
+          </div> 
+
+  <!-- Choix des modalités de livraison : ************************************************ -->
+        </form>
+        </div>
+        <div class="wedge10">&nbsp;</div>
+        <div class="bordure">
+          <div class="row"  >                
+            <div class=" col-sm-12">
+            <h4>Choisissez votre option de livraison pour cette adresse :</h4>
+            </div>
+          </div>
+          <div class="row"  >
+            <div class=" col-sm-12">
+            {{titrel+' '}}{{prenoml+' '}}{{noml+':'}}{{nol+' '}}{{ruel+' '}}{{compltl+' '}}{{cpl+' '}}{{villel+' '}}{{paysl}}
+            </div>
+          </div>
+          <div class="wedge10">&nbsp;</div> 
+          <div class="row "  >
+            <div class=" col-sm-1">
+              <center>
+              <input type="radio" ng-model="modpost" value="1" checked />
+              </center>
+            </div>
+            <div class="col-sm-11 bordure">
+              <div class="row "  >
+                <div class=" col-sm-2 fondGrisClair">
+                <center>
+                  <img src="images/mRelay.png" style="height:88px">               
+                </center>
+                </div>
+                <div class=" col-sm-2 fondGrisClair">
+                  <h4 style="color:red; width:100px">e-LIVRAISON DE VOS COLIS</h4>
+                </div>
+                <div class=" col-sm-6 bordvertiL90">
+                  <em>Mondial Relay</em> expédiés sous 48h et livrés en 3 jours ouvrés. Le meilleur prix et la livraison la plus rapide
+                </div>
+                <div class=" col-sm-2 bordvertiL90">
+                  {{coutMR+' '}}€ TTC
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="wedge30">&nbsp;</div> 
+          <div class="row "  >
+            <div class=" col-sm-1">
+              <center>
+              <input type="radio" ng-model="modpost" value="2" />
+              </center>
+            </div>
+            <div class="col-sm-11 bordure">
+              <div class="row "  >
+                <div class=" col-sm-4 fondGrisClair">
+                  <img src="images/colissimo.jpg" style="height:88px">
+                </div>
+                <div class=" col-sm-6 bordvertiL90">
+                  <em>Colissimo</em> expédiés sous 48h à 72h
+                </div>
+                <div class=" col-sm-2 bordvertiL90">
+                  {{coutColi+' '}}€ TTC
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="wedge30">&nbsp;</div> 
+          <div class="row " ng-show="dim==true" >
+            <div class=" col-sm-1">
+              <center>
+              <input type="radio" ng-model="modpost" value="3" />
+              </center>
+            </div>
+            <div class="col-sm-11 bordure">
+              <div class="row "  >
+                <div class=" col-sm-4 fondGrisClair">
+                  <img src="images/LettreSuivie.jpg" style="height:88px">
+                </div>
+                <div class=" col-sm-6 bordvertiL90">
+                  <em>Lettre suivie</em> expédiés dans enveloppe bulle affranchie ("document" de moins de 3cm d'épaisseur) sous 48h à 72h
+                </div>
+                <div class=" col-sm-2 bordvertiL90">
+                  {{coutPost+' '}}€ TTC
+                </div>
+              </div>
+            </div>
+          </div>
+          <br/>
+        </div>
+
+  <!-- Conditions Générales de Vente : ************************************************** -->
+        <div class="bordure">
+        <div class="row"  >
+          <div class=" col-sm-12">
+            <h4>Conditions générales de vente</h4>
+          </div>
+        </div>
+        <div class="row"  >
+          <div class=" col-sm-1">
+            <center>        
+              <input type="checkbox" ng-model="okcgv" />
+          </center>
+          </div> 
+          <div class=" col-sm-11 " >         
+            <label>J'ai lu les conditions générales de vente et j'y adhère sans réserve (<a href="#/cgv" target="_blank">Lire les Conditions générales de vente</a>)</label>
+          </div>
+        </div>
+  <!--  retour "<< Précédent" ou "Valider >>" : ******************************************* -->
+        <div class="bordure">
+          <div class="wedge5">&nbsp;</div>  
+          <div class="row">                 
+            <div class="col-xs-2">
+                <button class="btn btn-greyish  decal-l" ng-click="annulLivraison()" ><< Précèdent</button>
+              
+            </div>
+
+            <div class="col-sm-offset-4 col-md-offset-8 col-xs-2" ng-show="okcgv==false">              
+                <button class="btn btn-greyish " ng-click="mavar=true;" > Valider >></button>             
+            </div>
+
+            <div class="col-sm-offset-4 col-md-offset-8 col-xs-2" ng-show="okcgv==true">
+              <a href="#/panier"  class="decal-l" >
+                <button class="btn btn-greyish " ng-click="validLivraison()" > Valider >></button>
+              </a>
+            </div>
+            </div>         
+          </div>
+        </div>  
+          <div class="wedge5">&nbsp;</div> 
+
+      </div>
+    </div >
+  </div >
+
+</div>
